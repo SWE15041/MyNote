@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--核心配置文件：-->
+<configuration>
+    <!--引入外部配置文件 -->
+    <properties resource="application.properties"/>
+    <!--其他设置-->
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+    <!--类型别名-->
+    <typeAliases>
+        <!--单独定义别名-->
+        <!--<typeAlias type="com.lyn.mybatis3.entity.User" alias="User"/>-->
+        <!--批量定义别名-->
+        <package name="com.lyn.mybatis3.entity"/>
+    </typeAliases>
+    <!--配置类型处理器-->
+    <typeHandlers>
+        <!--<typeHandler handler=""/>-->
+    </typeHandlers>
+    <!-- mybatis提供了3种数据源类型，分别是：POOLED,UNPOOLED,JNDI -->
+    <!-- POOLED 表示支持JDBC数据源连接池 -->
+    <!-- UNPOOLED 表示不支持数据源连接池 -->
+    <!-- JNDI 表示支持外部数据源连接池 -->
+    <!--环境-->
+    <environments default="dev">
+        <!--环境变量-->
+        <environment id="dev">
+            <!--事务管理器-->
+            <transactionManager type="JDBC"></transactionManager>
+            <!--数据源-->
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--注册映射器-->
+    <mappers>
+        <!--1.单个注册：用xml文件注册，文件放置在不同的位置-->
+        <mapper resource="mapper/UserMapper.xml"/>
+
+        <!--2.单个注册：用全限定类名注册（需要将接口和xml文件放在同一个目录里才能生效）-->
+        <!--<mapper class="com.lyn.mybatis3.mapper.UserMapper"/>-->
+
+        <!--3.批量注册:（需要将接口和xml文件放在同一个目录里才能生效）-->
+        <!--<package name="com.lyn.mybatis3.mapper"/>-->
+
+    </mappers>
+
+</configuration>

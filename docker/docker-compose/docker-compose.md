@@ -1,0 +1,10 @@
+[toc]
+
+定义：docker-compose 是docker的开源项目，负责实现docker容器集群的快速编排。
+
+管理的容器分三层：工程（project）、服务（service）、容器（container）
+
+命令手册：https://docs.docker.com/compose/reference/up/
+
+
+
