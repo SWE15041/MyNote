@@ -12,38 +12,86 @@
 
 # gradle
 
-定义：
+## 定义：
 
-> 基于groovy语言（DSL）构建脚本，不再像maven一样使用XML
+> - gradle本质是一个项目工具；
+> - 基于groovy语言（DSL）构建脚本，不再像maven一样使用XML
+
+## gradle插件
+
+- Java插件：Java plugin 作为其中之一，为你提供了诸如编译，测试，打包等一些功能。
+- 
+
+## gradle依赖管理
+
+- 依赖的生效范围
+
+  >- compile : 编译期存在，同时会被打包
+  >- runtime : 运行和测试期间存在，
+  >- testCompile : 测试期编译期需要的附加依赖
+  >- testRuntime : 测试运行期间存在
+
+- maven仓库
+
+  >- 本地仓库
+  >- maven中央仓库
+  >- Jcenter仓库
+  >- 自定义仓库
+
+- **依赖冲突问题**
+- 
+
+## gradle的发布
+
+？？？
+
+## gradle命令
+
+- gradle build：Gralde 会**编译**并执行**单元测试**，并且将 `src/main/*` 下面 class 和资源文件**打包**。
+- gradle clean：删除build目录，包含目录下所有构建的文件
+- gradle assemble：编译并打包jar文件
+- gradle check : 编译并测试代码。
 
 
 
-一、gradle和idea的集成
+## gradle仓库目录结构
+
+- gradle的安装
+
+- 环境变量
+
+  > GRADLE_HOME
+  >
+  > GREDLE_USER_HOME
 
 
 
-gradle的安装
+## gradle基础
 
-环境变量
+### gradle项目的生命周期
 
-GRADLE_HOME
+- 初始化阶段：
 
-GREDLE_USER_HOME
+  > - 通过settings.gradle配置判断需要初始化的项目，
+  >
+  > - 为需要初始化的项目加载build.gradle中定义的配置，
+  >
+  > - 为每个项目创建project对象
 
+- 配置阶段
 
+  > - 构建Task任务依赖关系
 
-父工程和子工程gradle的关系
+- 执行阶段
 
-## 构建gradle项目
-
-概要
+### 概要
 
 >- 可以通过idea构建普通Java工程或者是web工程
 >- gradle两个核心概念：project、Task
 >- project由一个或者多个task组成，每个task表示在构建执行过程中的一个原子操作，如：编译、打包、生成javadoc、发布到仓库
 >- project可以是一个jar或war文件
 
-project常用配置
+#### project常用配置
 
 >- plugins , apply plugin ：引入插件
 >- Dependencies 依赖配置
@@ -51,7 +99,7 @@ project常用配置
 >- task ：任务书写
 >- ext、 gradle.properties Project 中属性配置
 
-task
+#### task
 
 > - dependsOn : 依赖相关操作
 > - doFirst ：任务执行之前执行的方法
@@ -71,9 +119,20 @@ task t2(dependsOn : "t1"){
         println "t2 l"
     }
 }
+？？？注意:当引用的任务尚未定义的时候不可使用短标记法来运行任务。
+
+
 ```
 
-## 构建项目步骤
+#### ???注意:当引用的任务尚未定义的时候不可使用短标记法来运行任务。
+
+
+
+# 构建项目步骤
+
+### 0、项目结构
+
+<img src="/Users/lyn/Library/Application%20Support/typora-user-images/image-20200425221541200.png" alt="image-20200425221541200" style="zoom:50%;" />
 
 ### 1、使用idea创建空gradle父项目：homework
 
@@ -230,6 +289,10 @@ println map
 
 # 文件
 
+## gradle.properties
+
+
+
 ## gradle-wrapper.properties
 
 1. 文件内容
@@ -314,6 +377,143 @@ println map
 
 
 
-## 语法解析
+# 语法解析
 
 https://www.cnblogs.com/woms/p/7040771.html
+
+## apply
+
+- 语法格式：
+
+- 作用
+
+- 例子
+
+  ```groovy
+  //应用插件
+  apply plugin: 'java'
+  //应用其他gradle文件
+  apply from: file("${rootDir}/gradle/check.gradle")
+  ```
+
+## sourceSets
+
+- 
+- 源集解释：https://wiki.jikexueyuan.com/project/gradle/java-package.html
+
+> ## 源集
+>
+> 1. 源集的定义：源集只是一组用于编译并一起执行的源文件。
+> 2. 源文件：Java源代码、资源文件、groovy源代码、scala源代码
+> 3. 源集的用途：把源文件进行逻辑上的分组，以描述它们的目的。
+> 4. Java 插件定义了两个标准的源集，分别是 main 和 test。
+>
+> - main 源集包含你产品的源代码，它们将被编译并组装成一个 JAR 文件。
+>
+> - test 源集包含你的单元测试的源代码，它们将被编译并使用 JUnit 或 TestNG 来执行。
+
+- 配置源集
+
+  ```groovy
+  sourceSets {
+      main {
+          java {
+              srcDir 'src/java'
+          }
+          resources {
+              srcDir 'src/resources'
+          }
+      }
+  }  
+  ```
+
+- 访问源集
+
+  ```groovy
+  println sourceSets.main.output.classesDir
+  println sourceSets['main'].output.classesDir
+  sourceSets {
+      println main.output.classesDir
+  }
+  sourceSets {
+      main {
+          println output.classesDir
+      }
+  }
+  ```
+
+  
+
+## sourceCompatibility
+
+- 作用：编译时jdk版本
+
+- 例子
+
+  ```groovy
+  sourceCompatibility = JavaVersion.VERSION_14
+  ```
+
+  
+
+## targetCompatibility
+
+- 作用：运行时JDK版本
+
+- 例子
+
+  ```groovy
+   targetCompatibility = JavaVersion.VERSION_14
+  ```
+
+  
+
+## dependencies	
+
+​	
+
+## configure
+
+
+
+## project 
+
+- 语法：project(":moduleName")
+- 作用：为项目配置依赖
+- 例子：
+
+## repositories
+
+- 
+
+- x
+
+- 用法：按定义顺序的仓库地址加载依赖
+
+  ```
+  repositories {
+  //    本地仓库
+      mavenLocal()
+  //    中央仓库
+      mavenCentral()
+  //    自定义仓库
+      maven {
+          url ''
+      }
+  }
+  ```
+
+  
+
+## subprojects
+
+- 语法：subprojects{...}
+- 作用：构建多项目时，给多个项目的设置公共配置（不包含根项目）
+- 例子：
+
+## allprojects
+
+- 语法：allprojects{...}
+- 作用：构建多项目时，给多个项目的设置公共配置，（包含父项目【根项目】）
+- 例子：
+
