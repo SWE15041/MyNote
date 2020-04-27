@@ -63,7 +63,7 @@
 
 > 共享主机内核，是一个独立运行的进程
 
-![img](https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=2586488810,994100192&fm=173&app=25&f=JPEG?w=640&h=247&s=8D05A4541E9DC01F070A158A0300D098)
+![img](https://cdn.jsdelivr.net/gh/SWE15041/MyImg/img/20200427204833.jpeg)
 
 ## docker架构
 
@@ -75,7 +75,7 @@
 
 ### docker总体架构图
 
-![img](https://cdn.jsdelivr.net/gh/SWE15041/Haomiao/img/20200424131007.jpg)
+![img](https://cdn.jsdelivr.net/gh/SWE15041/MyImg/img/20200427204846.jpg)
 
 
 
@@ -83,7 +83,7 @@
 
 ### docker服务端/客户端交互架构
 
-![img](http://img5.imgtn.bdimg.com/it/u=3357277367,4071322648&fm=26&gp=0.jpg)
+![image-20200428002711140](https://cdn.jsdelivr.net/gh/SWE15041/MyImg/img/20200428002714.png)
 
 ### doker详细交互架构
 

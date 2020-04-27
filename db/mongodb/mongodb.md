@@ -26,9 +26,28 @@
 
 - 创建文档时，如果数据库和集合不存在的时候，MongoDB会自动创建数据库和集合
 
-
+![image-20200427204519933](https://cdn.jsdelivr.net/gh/SWE15041/MyImg/img/20200427204534.png)
 
 ## 4、命令
+
+#### 连接命令
+
+- 语法：
+
+  ```
+  mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]
+  ```
+
+- 例子
+
+  ```
+  > mongodb://admin:123456@localhost/test
+  > mongodb://localhost/test
+  > mongodb://localhost:27017/test
+  > mongodb://localhost,localhost:27018,localhost:27019
+  ```
+
+
 
 #### 管理命令
 
@@ -36,6 +55,23 @@
 >- use [db_name]
 >- db
 >- show collections
+>- db.isMaster()
+
+- 创建数据库
+
+  ```
+  use db_name
+  ```
+
+  如果数据库不存在则创建，存在则切换到指定数据库
+
+- 查看当前所在数据库
+
+  >db
+
+- 其他
+
+
 
 #### 增删改查命令
 
@@ -44,3 +80,15 @@
 > - 
 
 - 如果插入文档时，如果没有指定_id ，MongoDB会自动生成一个ObJectId；
+
+
+
+
+
+
+
+# docker+mongodb
+
+> docker exec -it --user root 9ece70e4547a /bin/bash
+
+- 进入mongodb容器。

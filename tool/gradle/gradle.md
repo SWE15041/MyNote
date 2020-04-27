@@ -132,7 +132,7 @@ task t2(dependsOn : "t1"){
 
 ### 0、项目结构
 
-<img src="/Users/lyn/Library/Application%20Support/typora-user-images/image-20200425221541200.png" alt="image-20200425221541200" style="zoom:50%;" />
+<img src="https://cdn.jsdelivr.net/gh/SWE15041/MyImg/img/20200427204658.png" alt="image-20200425221541200" style="zoom:50%;" />
 
 ### 1、使用idea创建空gradle父项目：homework
 
@@ -140,9 +140,9 @@ task t2(dependsOn : "t1"){
 - 在idea配置中，设置gradle的来源从项目配置文件中获取：``'Wrapper' task inGradle build script`
 - jdk的版本是14
 
-![image-20200425204825422](/Users/lyn/Library/Application%20Support/typora-user-images/image-20200425204825422.png)
+![image-20200425204825422](https://cdn.jsdelivr.net/gh/SWE15041/MyImg/img/20200427204709.png)
 
-![image-20200425220043203](/Users/lyn/Library/Application%20Support/typora-user-images/image-20200425220043203.png)
+![image-20200425220043203](https://cdn.jsdelivr.net/gh/SWE15041/MyImg/img/20200427204723.png)
 
 ### 2、配置父项目的属性文件
 
@@ -166,11 +166,11 @@ task t2(dependsOn : "t1"){
 
 3. 使用gradle插件，在菜单界面点击按钮''Reimport all gradle Projects”
 
-   <img src="/Users/lyn/Library/Application%20Support/typora-user-images/image-20200425212509667.png" alt="image-20200425212509667" style="zoom:50%;" />
+   <img src="https://cdn.jsdelivr.net/gh/SWE15041/MyImg/img/20200427204739.png" alt="image-20200425212509667" style="zoom:50%;" />
 
 4. 在子工程下创建文件夹，会有提示
 
-   <img src="/Users/lyn/Library/Application%20Support/typora-user-images/image-20200425212408690.png" alt="image-20200425212408690" style="zoom:50%;" />
+   <img src="https://cdn.jsdelivr.net/gh/SWE15041/MyImg/img/20200427204748.png" alt="image-20200425212408690" style="zoom:50%;" />
 
     
 
