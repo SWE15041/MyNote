@@ -400,3 +400,83 @@ https://www.runoob.com/mysql/mysql-data-types.html
 mysql> grant all privileges on *.* to lanyn@'%' identified by '123456' with grant option;
 ```
 
+
+
+# 五、高级语法
+
+## 变量
+
+### 1 用户变量（局部变量）
+
+- 定义：
+
+  - 由用户定义，生命周期只在一个批内部有效。
+  - 局部变量以@作为第一个字符，由用户自己定义和赋值。
+
+- 声明、赋值局部变量：
+
+  ```mysql
+  SET @a='test';
+  ```
+
+- 打印变量值
+
+  ```mysql
+  set @var1= 1;
+  select @var1;
+  ```
+
+  
+
+注：`=`和`:=`
+
+```mysql
+mysql> SET @a='test';
+mysql> SET @t1=0, @t2=0, @t3=0;
+mysql> SELECT @t1:=(@t2:=1)+@t3:=4,@t1,@t2,@t3;
+| @t1:=(@t2:=1)+@t3:=4 | @t1  | @t2  | @t3  |
+					 5 |    5 |    1 |    4 |
+```
+
+
+
+### 2 系统变量
+
+#### 全局变量
+
+- 定义：全局变量以@@作为开始，只能访问，不能赋值
+
+```mysql
+mysql> SET GLOBAL sort_buffer_size=value;
+mysql> SET @@global.sort_buffer_size=value;
+```
+
+
+
+#### 会话变量
+
+```mysql
+mysql> SET SESSION sort_buffer_size=value;
+mysql> SET @@session.sort_buffer_size=value;
+```
+
+
+
+
+
+# 六、MySQL数据库管理系统相关
+
+## 信息数据库：information_schema
+
+- 定义：
+  - 保存着关于MySQL服务器所维护的所有其他数据库的信息。
+  - 如数据库名，数据库的表，表栏的数据类型与访问权 限等。在INFORMATION_SCHEMA中，有数个只读表。
+  - 它们实际上是视图，而不是基本表，因此，你将无法看到与之相关的任何文件。
+
+## 核心数据库：mysql
+
+- 定义：
+  - 主要负责存储数据库的用户、权限设置、关键字等mysql自己需要使用的控制和管理信息。
+  - 不可删除
+
+## 数据库：performance_schema
