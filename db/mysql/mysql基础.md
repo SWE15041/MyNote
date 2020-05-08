@@ -479,4 +479,72 @@ mysql> SET @@session.sort_buffer_size=value;
   - 主要负责存储数据库的用户、权限设置、关键字等mysql自己需要使用的控制和管理信息。
   - 不可删除
 
-## 数据库：performance_schema
+## 性能数据库：performance_schema
+
+
+
+
+
+# 七、MySQL 拓展语法
+
+- 例子
+
+```mysql
+SELECT
+	COUNT( * ) INTO @INDEX 
+FROM
+	information_schema.`COLUMNS` 
+WHERE
+	table_schema = DATABASE ( ) 
+	AND column_name = 'column_name' 
+	AND table_name = 'table_name';
+
+SET @SQL =
+IF
+	( @INDEX < 1, 'ALTER TABLE table_name ADD column_name VARCHAR(50) NULL AFTER another_columne_name', 'select \'Exist Column\';' );
+	
+PREPARE statement 
+FROM
+	@SQL;
+	
+EXECUTE statement;
+```
+
+
+
+- 解析
+  - IF(expr1,expr2,expr3)
+  - prepare
+  - execute
+
+- 语法：IF(expr1,expr2,expr3)
+
+> - 作用：如果expr1的值为true，则返回expr2的值，如果expr1的值为false，则返回expr3的值。
+> - 
+
+- 语法：PREPARE statement_name FROM preparable_SQL_statement; 
+
+> - 完整语法
+>
+> ```mysql
+> PREPARE statement_name FROM preparable_SQL_statement; /*定义*/
+> EXECUTE statement_name [USING @var_name [, @var_name] ...]; /*执行预处理语句*/
+> {DEALLOCATE | DROP} PREPARE statement_name /*删除定义*/ ;
+> ```
+>
+> - 作用：
+>   - PREPARE语句用于预备一个语句，并指定名称statement_name，以后引用该语句。
+
+- DATABASE()
+
+> - 作用：返回默认或当前数据库的名称
+>
+> - 例子：
+>
+>   ```mysql
+>   SELECT DATABASE();
+>   ```
+>
+>   
+
+- 
