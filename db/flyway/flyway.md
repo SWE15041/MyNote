@@ -232,7 +232,7 @@ tasks.withType(org.flywaydb.gradle.task.AbstractFlywayTask).configureEach {
 
 #### 2、在Gradle中配置Flyway Properties
 
-> flyway/properties
+> flyway.properties
 
 ```properties
 flyway.password=root
