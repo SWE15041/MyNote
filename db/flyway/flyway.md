@@ -184,7 +184,7 @@ locations自定义值：
 
 ### 子项目结构：
 
-![image-20200507114837517](D:\lyn\MyNote\db\flyway\image-20200507114837517.png)
+![image-20200507114831229](https://cdn.jsdelivr.net/gh/SWE15041/MyImg/img/20200508081230.png)
 
 ### 步骤
 
