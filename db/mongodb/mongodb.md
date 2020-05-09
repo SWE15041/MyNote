@@ -417,12 +417,29 @@ https://www.processon.com/view/584e086be4b0d594ec874170#map
   - db.cutomers.findOneAndUpdate(filter, update, options)
   - db.cutomers.findOneAndReplace(filter, replacement, options)
 
+- 参数解析
+
+  - query：查询条件，
+    - projection : 用于指定返回字段，默认返回字段包含：`_id`，可以使用`{_id:0}`剔除该字段
+    - `field : 1 || true`  => 定义返回字段
+  - `field : 0 || false` => 定义剔除字段
+    - 注：返回字段不能同时设置 包含字段和 剔除字段，但是`_id`字段例外
+  
 - 例子
 
   ```
-  >  
+  //正确
+  > db.inventory.find( {}, { _id: 0, item: 1, status: 1 } );
+> db.inventory.find( { }, { item: 1, status: 1 } );
+  > db.inventory.find( {}, { _id: 0, item: 0, status: 0 } );
+  > db.inventory.find( { }, { item: 0, status: 0 } );
+  
+  //错误:除_id字段外，同时定义了 剔除和返回字段
+  > db.inventory.find( {}, { _id: 0, item: 0, status: 1 } );
+  > db.inventory.find( { }, { item: 1, status: 1 } );
+  
   ```
-
+  
   
 
 ## 2.4  index
@@ -436,6 +453,182 @@ https://www.processon.com/view/584e086be4b0d594ec874170#map
   ```
 
   
+
+
+
+# 操作符
+
+## 查询操作符 
+
+#### https://docs.mongodb.com/manual/reference/operator/query/#query-selectors
+
+### 比较操作符
+
+>- $eq
+>- $gt
+>- $gte
+>- $lt
+>- $lte
+>- $ne
+>- $in    ：匹配数组中指定的任何值
+>- $nin  ：不匹配数组中的任何值
+
+- 语法：{ field: { $in: [<value1>, <value2>, ... <valueN> ] } }
+- 例子
+
+```
+//普通用法
+> db.inventory.find( { qty: { $in: [ 5, 15 ] } } )
+//正则匹配
+> db.inventory.find( { tags: { $in: [ /^be/, /^st/ ] } } )
+```
+
+
+
+### 逻辑操作符
+
+> - $and
+> - $or
+> - $not
+> - $nor
+
+- 语法：{ $nor: [ { <expression1> }, { <expression2> }, ...  { <expressionN> } ] }
+
+- 例子
+
+  ```
+  // 返回price != 99 && sale != true
+  > db.inventory.find( { $nor: [ { price: 1.99 }, { sale: true } ]  } )
+  // $and运算式可以省略
+  > db.inventory.find( { $and: [ { price: { $ne: 1.99 } }, { price: { $exists: true } } ] } )
+  > db.inventory.find( { price: { $ne: 1.99, $exists: true } } )
+  ```
+
+  
+
+### 元素操作符
+
+>- $exists ：判断字段是否存在
+>- $type：判断字段的数据类型
+
+- 语法：
+
+  - { field: { $exists: <boolean> } }
+
+  - -----------------------------------------------
+
+  - { field: { $type: <BSON type> } }  
+
+  - { field: { $type: [ <BSON type1> , <BSON type2>, ... ] } }
+
+- 官网：https://docs.mongodb.com/manual/reference/operator/query/type/#op._S_type
+
+- 例子
+
+  ```
+  > db.records.find( { a: { $exists: true } } )
+  > db.records.find( { b: { $exists: false } } )
+  
+  > db.addressBook.find( { "zipCode" : { $type : 2 } } );
+  > db.addressBook.find( { "zipCode" : { $type : 'string' } } );
+  > db.addressBook.find( { "zipCode" : { $type : 'double' } } );
+  > db.grades.find( { "classAverage" : { $type : [ "string" , "double" ] } } );
+  
+  ```
+
+  
+
+### Evaluation
+
+> - $regex 
+> - $expr 
+> - 。。。。
+
+- $regex :
+
+  - { <field>: /pattern/<options> }
+  - { <field>: { $regex: /pattern/, $options: '<options>' } }
+  - { <field>: { $regex: 'pattern', $options: '<options>' } }
+  - { <field>: { $regex: /pattern/<options> } }
+
+- 例子
+
+  ```
+  > { name: { $in: [ /^acme/i, /^ack/ ] } }
+  ```
+
+- $expr 
+
+  - { $expr: { <expression> } }
+
+  - 可以使用管道
+
+  - 例子
+
+    ```
+    // spent > budget
+    > db.monthlyBudget.find( { $expr: { $gt: [ "$spent" , "$budget" ] } } )
+    ```
+
+    ```
+    > db.monthlyBudget.insertMary([
+    { "_id" : 1, "category" : "food", "budget": 400, "spent": 450 },
+    { "_id" : 2, "category" : "drinks", "budget": 100, "spent": 150 },
+    { "_id" : 3, "category" : "clothes", "budget": 100, "spent": 50 },
+    { "_id" : 4, "category" : "misc", "budget": 500, "spent": 300 },
+    { "_id" : 5, "category" : "travel", "budget": 200, "spent": 650 }
+    ])
+    ```
+
+    
+
+### 数组操作符
+
+### projection操作符
+
+> - $
+> - $elemMatch
+> - $slice
+
+- $ ：返回匹配 到的第一个数组元素，（对已经查询到的结果，再处理）
+
+- 例子
+
+  ```
+  > db.students.insert([
+  { "_id" : 1, "semester" : 1, "grades" : [ 70, 87, 90 ] },
+  { "_id" : 2, "semester" : 1, "grades" : [ 90, 88, 92 ] },
+  { "_id" : 3, "semester" : 1, "grades" : [ 85, 100, 90 ] },
+  { "_id" : 4, "semester" : 2, "grades" : [ 79, 85, 80 ] },
+  { "_id" : 5, "semester" : 2, "grades" : [ 88, 88, 92 ] },
+  { "_id" : 6, "semester" : 2, "grades" : [ 95, 90, 96 ] }
+  ])
+  > db.students.find( { semester: 1, grades: { $gte: 85 } },{ "grades.$": 1 } )
+  > db.students.find( { semester: 1, grades: { $gte: 85 } } )                  
+  ```
+
+- $elemMatch ：返回匹配到的第一个字段，如果没有满足条件，则该部分的字段不返回
+  - https://docs.mongodb.com/manual/reference/operator/projection/elemMatch/#proj._S_elemMatch
+
+- $slice ：限制数据返回的项数
+
+  - db.collection.find( { field: value }, { array: {$slice: count } } );
+  - db.collection.find( { field: value }, { array: {$slice: [skip,limit]} } );
+    - count ：值可正、可负
+    - skip : 偏移量，从0开始
+    - limit : 需要返回的数量
+
+  ```
+  > db.posts.find( {}, { comments: { $slice: 5 } } )
+  > db.posts.find( {}, { comments: { $slice: -5 } } )
+  > db.posts.find( {}, { comments: { $slice: [ 20, 10 ] } } )
+  // 从倒数第20项开始的10条记录
+  > db.posts.find( {}, { comments: { $slice: [ -20, 10 ] } } )
+  ```
+
+  
+
+
 
 # docker+mongodb
 
@@ -476,4 +669,12 @@ Invalid key 'name': update only works with $ operators
 ```
 db.cutomers.update({'name': 'lyn'}, {$set:{'name':'ZhangSan','age': 102}} , {multi : true})
 ```
+
+
+
+
+
+# 问题
+
+## 1 minkey maxkey没看懂
 
