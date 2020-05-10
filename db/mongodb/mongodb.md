@@ -437,6 +437,40 @@ https://www.processon.com/view/584e086be4b0d594ec874170#map
 
   
 
+# $操作符
+
+## $(projection)
+
+
+
+## $elemMatch(projection)
+
+## $meta
+
+## $slice(projection)
+
+- 语法：
+
+  - `db.collection.find( { field: value }, { array: {$slice: count } } );`
+
+    - count : 正数、负数值都可以
+
+  - `db.collection.find( { field: value }, { array: {$slice:  [ skip , limit ] } } ); `
+
+    
+
+- 作用：控制返回项的数量
+
+- 例子
+
+  ```
+  db.posts.find( {}, { comments: { $slice: 5 } } )
+  db.posts.find( {}, { comments: { $slice: -5 } } )
+  db.posts.find( {}, { comments: { $slice: [ 20, 10 ] } } )
+  ```
+
+  
+
 # docker+mongodb
 
 > docker exec -it --user root 9ece70e4547a /bin/bash
