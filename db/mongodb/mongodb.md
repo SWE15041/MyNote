@@ -430,14 +430,15 @@ https://www.processon.com/view/584e086be4b0d594ec874170#map
   ```
   //正确
   > db.inventory.find( {}, { _id: 0, item: 1, status: 1 } );
+  ```
 > db.inventory.find( { }, { item: 1, status: 1 } );
-  > db.inventory.find( {}, { _id: 0, item: 0, status: 0 } );
-  > db.inventory.find( { }, { item: 0, status: 0 } );
-  
+> db.inventory.find( {}, { _id: 0, item: 0, status: 0 } );
+> db.inventory.find( { }, { item: 0, status: 0 } );
+
   //错误:除_id字段外，同时定义了 剔除和返回字段
   > db.inventory.find( {}, { _id: 0, item: 0, status: 1 } );
   > db.inventory.find( { }, { item: 1, status: 1 } );
-  
+
   ```
   
   
@@ -449,8 +450,10 @@ https://www.processon.com/view/584e086be4b0d594ec874170#map
 - 例子
 
   ```
+  >
+  >  ```
   >  
-  ```
+  >  ```
 
   
 
@@ -608,8 +611,9 @@ https://www.processon.com/view/584e086be4b0d594ec874170#map
   ```
 
 - $elemMatch ：返回匹配到的第一个字段，如果没有满足条件，则该部分的字段不返回
-  - https://docs.mongodb.com/manual/reference/operator/projection/elemMatch/#proj._S_elemMatch
-
+  
+- https://docs.mongodb.com/manual/reference/operator/projection/elemMatch/#proj._S_elemMatch
+  
 - $slice ：限制数据返回的项数
 
   - db.collection.find( { field: value }, { array: {$slice: count } } );
@@ -677,4 +681,3 @@ db.cutomers.update({'name': 'lyn'}, {$set:{'name':'ZhangSan','age': 102}} , {mul
 # 问题
 
 ## 1 minkey maxkey没看懂
-

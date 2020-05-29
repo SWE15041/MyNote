@@ -301,3 +301,10 @@ configure(subprojects.findAll {it.name.endsWith('-db-migration') }) {
 ```
 
 ## 4、migration命名不同，内容相同，执行migrate不会报错
+
+
+
+## 5、migration文件的R和V类型的命名规则是什么，不是官方的那套命名规则，是我们这边项目的命名规则
+
+## 6、我们项目这边的话要怎么选择使用R还是V类型
+
