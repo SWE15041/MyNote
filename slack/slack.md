@@ -33,7 +33,7 @@ Bot User OAuth Access Token: xoxb-......
 - 作用：发送消息到指定频道
 
 ```
-https://hooks.slack.com/services/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
+https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
 ![image-20200710104139688](D:\lyn\MyNote\slack\upload\image-20200710104139688.png)
