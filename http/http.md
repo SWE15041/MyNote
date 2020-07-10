@@ -10,19 +10,19 @@
 - 应用：
   - 
 
-### CREATED(201),
+### CREATED(201)
 
 - 定义：请求已经被实现，而且有一个新的资源已经依据请求的需要建立
 - 应用：
   - post 请求方式对应的API请求
 
-### ACCEPTED(202),
+### ACCEPTED(202)
 
 - 定义：服务器已接受请求，但尚未处理。
 - 应用：
   - 异步请求
 
-### NO_CONTENT(204),
+### NO_CONTENT(204)
 
 - 定义：服务器成功处理了请求，但**不需要返回任何实体内容**，并且希望返回更新了的元信息。
 - 应用：
@@ -30,7 +30,7 @@
 
 ## 3XX（重定向）
 
-### MOVED_PERMANENTLY(301),
+### MOVED_PERMANENTLY(301)
 
 - 定义：被请求的资源已永久移动到新位置，并且将来任何对此资源的引用都应该使用本响应返回的若干个 URI 之一。
 - 特点
@@ -38,7 +38,7 @@
 - 应用：
   - 在应对`GET` 或 `HEAD`方法时使用301。
 
-### FOUND(302),     // 302 Moved Temporarily, sometimes Found
+### FOUND(302)    // 302 Moved Temporarily, sometimes Found
 
 - 定义：重定向状态码表明请求的资源被**暂时**的移动到了由Location`]头部指定的 URL 上。浏览器会重定向到这个URL，
 - 特点：
@@ -50,7 +50,7 @@
   - 在响应 `GET`或 `HEAD` 方法时采用 302 状态码
 
 
-### SEE_OTHER(303),
+### SEE_OTHER(303)
 
 - 定义：对应当前请求的响应可以在另一个 URL 上被找到，而且客户端应当采用 GET 的方式访问那个资源。
 - 特点：
@@ -58,13 +58,13 @@
 - 应用：
   - PUT 或 POST 操作
 
-### NOT_MODIFIED(304),
+### NOT_MODIFIED(304)
 
 - 定义：**（未改变）**，说明无需再次传输请求的内容，也就是说可以使用缓存的内容。
 - 应用：
   - GET 或HEAD 
 
-### TEMPORARY_REDIRECT(307),
+### TEMPORARY_REDIRECT(307)
 
 - 定义：**（临时重定向）**表示重定向的响应状态码，说明请求的资源**暂时**地被移动到 `location` 首部所指向的 URL 上。
 - 特点：
@@ -74,7 +74,7 @@
   - 307 状态码可以确保请求方法和消息主体不会发生变化。当响应状态码为 302 的时候，一些旧有的用户代理会错误地将请求方法转换为 GET；
 - 
 
-### PERMANENT_REDIRECT(308),
+### PERMANENT_REDIRECT(308)
 
 - 定义：**（永久重定向）**是表示重定向的响应状态码，说明请求的资源已经被**永久**的移动到了由 `Location`首部指定的 URL 上。
 - 特点：
@@ -86,7 +86,7 @@
 
 ## 4XX（客户端响应）
 
-### BAD_REQUEST(400),
+### BAD_REQUEST(400)
 
 - 定义：语法无效，服务器无法理解该请求。 
 - 特点：
@@ -94,34 +94,34 @@
   - 语义有误
   - 请求参数有误
 
-### UNAUTHORIZED(401),
+### UNAUTHORIZED(401)
 
 - 定义：客户端错误，指的是由于缺乏目标资源要求的**身份验证凭证**，发送的请求未得到满足。
 - 特点：
 - 应用：
 
-### FORBIDDEN(403),
+### FORBIDDEN(403)
 
-- 定义：服务器已经理解请求，但是拒绝执行它。
+- 定义：服务器已经理解请，但是拒绝执行它。
 - 特点：
 - 应用：
 
-### NOT_FOUND(404),
+### NOT_FOUND(404)
 
 - 定义：请求失败，请求所希望得到的资源未被在服务器上发现。
 - 特点：404 状态码并不能说明请求的资源是临时还是永久丢失。
 
-### METHOD_NOT_ALLOWED(405),
+### METHOD_NOT_ALLOWED(405)？？？
 
 - 定义：表明服务器禁止了使用当前 HTTP 方法的请求。
 - 
 
-### NOT_ACCEPTABLE(406),
+### NOT_ACCEPTABLE(406)
 
 - 定义：表示客户端错误，指代服务器端无法提供与  Accept-Charset 以及 Accept-Language 消息头指定的值相匹配的响应。
 - Accept-Charset 请求头：用来告知（服务器）客户端可以处理的字符集类型。
 
-### CONFLICT(409),
+### CONFLICT(409)
 
 - 定义：请求与服务器端目标资源的当前状态相冲突。
 
@@ -130,22 +130,22 @@
 - 定义：**永久性丢失**， 说明请求的内容在服务器上不存在了，同时是永久性的丢失。
 - 特点：410 响应默认会被缓存
 
-### PRECONDITION_FAILED(412),？？？
+### PRECONDITION_FAILED(412)？？？
 
 -  定义：表示客户端错误，意味着对于目标资源的访问请求被拒绝。
-- 特点：这通常发生于采用除 [`GET`](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Methods/GET) 和 [`HEAD`](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Methods/HEAD) 之外的方法进行条件请求时，由首部字段 [`If-Unmodified-Since`](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/If-Unmodified-Since) 或 [`If-None-Match`](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/If-None-Match) 规定的先决条件不成立的情况下。
+- 特点：这通常发生于采用除 GET 和 HEAD 之外的方法进行条件请求时，由首部字段 If-Unmodified-Since 或 If-None-Match 规定的先决条件不成立的情况下。
 - 应用：
   - 通常是上传或修改文件无法执行时使用。
 
-### UNPROCESSABLE_ENTITY(422),
+### UNPROCESSABLE_ENTITY(422)
 
 - 定义：请求格式良好，但由于语义错误而无法遵循。
 
-### UPGRADE_REQUIRED(426),
+### UPGRADE_REQUIRED(426)
 
 - 定义：是一种**HTTP协议的错误**状态代码，表示服务器拒绝处理客户端使用当前协议发送的请求，但是可以接受其使用升级后的协议发送的请求。
 
-### TOO_MANY_REQUESTS(429),
+### TOO_MANY_REQUESTS(429)
 
 - 定义：表示在一定的时间内用户发送了太多的请求，即超出了“频次限制”。
 
@@ -153,28 +153,21 @@
 
 ## 5XX（服务端响应）
 
-### INTERNAL_SERVER_ERROR(500),
+### INTERNAL_SERVER_ERROR(500)
 
 - 定义：服务器遇到了一个未曾预料的状况，导致了它无法完成对请求的处理。
 
-### BAD_GATEWAY(502),
+### BAD_GATEWAY(502)
 
 - 定义：是一种HTTP协议的服务器端错误状态代码，它表示作为网关或代理角色的服务器，从上游服务器（如tomcat、php-fpm）中接收到的响应是无效的。
 
-### SERVICE_UNAVAILABLE(503),
+### SERVICE_UNAVAILABLE(503)
 
 - 定义：是一种HTTP协议的服务器端错误状态代码，它表示服务器尚**未处于**可以接受请求的状态。
 - 原因：
   - 由于服务器停机维护或者已超载
 
-### GATEWAY_TIMEOUT(504);
+### GATEWAY_TIMEOUT(504)
 
 - 定义：当服务器作为网关，不能及时得到响应时返回此错误代码。
-
-# HTTP
-
-- options
-- head
-
-# RESTful-API
 

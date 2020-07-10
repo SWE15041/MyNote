@@ -28,11 +28,71 @@ https://www.processon.com/view/584e086be4b0d594ec874170#map
 > - 集合：存放文档，类似于数组
 > - 文档：文档数据库中的最小单位；
 
+#### 文档（document）
+
 - 创建文档时，如果数据库和集合不存在的时候，MongoDB会自动创建数据库和集合
 
 ![image-20200427204519933](https://cdn.jsdelivr.net/gh/SWE15041/MyImg/img/20200427204534.png)
 
+- 文档结构：字段(名：值)对
+
+  - 字段名：字符串类型
+  - 值：bson支持的数据类型
+
+- 文档分类：
+
+  - 基本文档结构
+  - 查询过滤器文档结构
+  - 更新文档结构
+  - 索引文档结构
+
+  ```
+  // 基本文档结构
+  {
+     field1: value1,
+     field2: value2,
+     field3: value3,
+     ...
+     fieldN: valueN
+  }
+  
+  // 嵌入式文档结构
+   
+  
+  // 查询过滤器文档结构
+  {
+    <field1>: <value1>,
+    <field2>: { <operator>: <value> },
+    ...
+  }
+  
+  // 更新文档结构
+  {
+    <operator1>: { <field1>: <value1>, ... },
+    <operator2>: { <field2>: <value2>, ... },
+    ...
+  }
+  
+  // 索引文档结构
+  { <field1>: <type1>, <field2>: <type2>, ...  }
+  ```
+
+- 特殊字段："_id"
+  - 字段名："_id"，
+  - 特点：主键，唯一；唯一索引；
+  - 字段值：除数组以外的任意bson数据类型
+- 文档限制
+  - 最大容量：16MB （超过16MB可以选用：GridFS ）
+  - 字段排序："_id"始终为第一个字段
+  - 
+
 ## 1.4 命令
+
+#### 查看Mongo 版本
+
+```
+db.version()
+```
 
 #### 连接命令
 
@@ -223,19 +283,21 @@ https://www.processon.com/view/584e086be4b0d594ec874170#map
   - target ：集合新名称
   - dropTarget ：可选，值 (true|false) 
     - true  => 新集合名称如果存在，先删除同名的集合，再创建
-    - false => 新集合名称如果存在，则重命名失败
+    - false => （默认值）新集合名称如果存在，则重命名失败
 
 - 例子
 
   ```
-  //noncol -> product
+  //noncol -> product，如果重命名的名称已存在,则重命名失败
   > db.noncol.renameCollection('product')
-  // 重命名的名称已存在
+  
+  // 如果重命名的名称已存在,则删除旧，再重命名
   > db.createCollection('noncol') 
   > db.createCollection('cutomers')
   > db.noncol.renameCollection('cutomers' ,true)
   ```
-
+```
+  
   
 
 ### 2.2.4 删除集合
@@ -244,9 +306,12 @@ https://www.processon.com/view/584e086be4b0d594ec874170#map
 
 - 例子
 
-  ```
+```
   > db.createCollection('noncol') 
   > db.noncol.drop()
+
+  ```
+  
   ```
 
   
@@ -318,7 +383,7 @@ https://www.processon.com/view/584e086be4b0d594ec874170#map
   - query ：定义查询条件
   - update ：定义 对检索到的文档 需要做的修改
   - upsert ： 默认值false， 如果检索不到则创建，创建文档内容来源于update的定义
-  - multi ：默认值false,
+  - multi ：默认值：false,
     - false   =>  (更新检索到的第一个文档)
     - true    =>  更新检索到的所有文档
   - collation
@@ -369,6 +434,8 @@ https://www.processon.com/view/584e086be4b0d594ec874170#map
 
 ### 2.3.4 删除
 
+> remove
+
 - 语法：`db.collection.remove(query, options)`
 
   ```
@@ -387,8 +454,8 @@ https://www.processon.com/view/584e086be4b0d594ec874170#map
 - 参数解析
 
   - query：查询条件
-  - justOne：默认false，
-    - false： 删除满足条件的 **全部**
+  - justOne：
+    - false：**（默认值）** 删除满足条件的 **全部** 
     - true ：删除满足条件的**第一个**
 
 - 例子
@@ -403,59 +470,191 @@ https://www.processon.com/view/584e086be4b0d594ec874170#map
   > db.cutomers.remove({})
   ```
 
-  
+> 
 
 ### 2.3.5 查询 
 
 - 语法：
 
-  - db.cutomers.find()
-  - db.cutomers.find(query, projection)
-  - db.cutomers.findOne(query, projection)
-  - db.cutomers.findAndModify(document)
-  - db.cutomers.findOneAndDelete(filter, options)
-  - db.cutomers.findOneAndUpdate(filter, update, options)
-  - db.cutomers.findOneAndReplace(filter, replacement, options)
+  - db.collection.find()
+  - db.collection.find(query, projection)
+  - db.collection.findOne(query, projection)
+  - db.collection.findAndModify(document)
+  - db.collection.findOneAndDelete(filter, options)
+  - db.collection.findOneAndUpdate(filter, update, options)
+  - db.collection.findOneAndReplace(filter, replacement, options)
 
 - 参数解析
 
   - query：查询条件，
-    - projection : 用于指定返回字段，默认返回字段包含：`_id`，可以使用`{_id:0}`剔除该字段
-    - `field : 1 || true`  => 定义返回字段
-  - `field : 0 || false` => 定义剔除字段
-    - 注：返回字段不能同时设置 包含字段和 剔除字段，但是`_id`字段例外
+    - projection : 用于指定返回字段
+      - `field : 1 || true`  => 定义返回字段
+      - `field : 0 || false` => 定义剔除字段
+    - 注：
+      - 返回字段不能同时设置 包含字段和 剔除字段，但是`_id`字段例外
+      - **默认返回字段包含：`_id`**，可以使用`{_id:0}`剔除该字段
   
-- 例子
+-  db.collection.find()
+
+  ```
+  // 测试数据
+  db.inventory.insertMany( [
+     { item: "journal", qty: 25, size: { h: 14, w: 21, uom: "cm" }, status: "A" },
+     { item: "notebook", qty: 50, size: { h: 8.5, w: 11, uom: "in" }, status: "A" },
+     { item: "paper", qty: 100, size: { h: 8.5, w: 11, uom: "in" }, status: "D" },
+     { item: "planner", qty: 75, size: { h: 22.85, w: 30, uom: "cm" }, status: "D" },
+     { item: "postcard", qty: 45, size: { h: 10, w: 15.25, uom: "cm" }, status: "A" }
+  ]);
+  ```
+
+  
 
   ```
   //正确
   > db.inventory.find( {}, { _id: 0, item: 1, status: 1 } );
+  > db.inventory.find( { }, { item: 1, status: 1 } );
+  > db.inventory.find( {}, { _id: 0, item: 0, status: 0 } );
+  > db.inventory.find( { }, { item: 0, status: 0 } );
   ```
-> db.inventory.find( { }, { item: 1, status: 1 } );
-> db.inventory.find( {}, { _id: 0, item: 0, status: 0 } );
-> db.inventory.find( { }, { item: 0, status: 0 } );
 
-  //错误:除_id字段外，同时定义了 剔除和返回字段
+  ```
+   //错误:除_id字段外，同时定义了 剔除和返回字段
   > db.inventory.find( {}, { _id: 0, item: 0, status: 1 } );
   > db.inventory.find( { }, { item: 1, status: 1 } );
-
+  ```
+  
+  ```
+  // 查询结果集-操作函数
+  // 排序：（1 -> 升序） （-1 -> 降序）
+  db.bios.find().sort( { name: 1 } )
+  
+  db.bios.find().limit( 2 )
+  
+  db.bios.find().skip(9 )
+  
+  // collation : 允许用户为字符串比较指定特定于语言的规则
+  db.bios.find( { "name.last": "hopper" } ).collation( { locale: "en_US", strength: 1 } )
+  
+  // 结果一样，先执行limit再执行sort
+  db.bios.find().sort( { name: 1 } ).limit( 5 )
+  db.bios.find().limit( 5 ).sort( { name: 1 } )
+  
   ```
   
   
 
-## 2.4  index
+- db.collection.findAndModify(document)  
+
+  - 作用： 默认查询得到的结果集不做修改，修改的部分更新到数据库
+  - 语法
+
+  ```
+  db.collection.findAndModify({
+      query: <document>,
+      sort: <document>,
+      remove: <boolean>,
+      update: <document or aggregation pipeline>, // Changed in MongoDB 4.2
+      new: <boolean>,
+      fields: <document>,
+      upsert: <boolean>,
+      bypassDocumentValidation: <boolean>,
+      writeConcern: <document>,
+      collation: <document>,
+      arrayFilters: [ <filterdocument1>, ... ]
+  });
+  ```
+
+  ```
+  解析
+  - query : 查询条件
+  - sort ：排序，如果使用了这个字段，且查询的结果为空，则返回{}，如果没有使用这个字段，且查询的结果为空，则返回null;
+  - remove : 对查询的结果文档进行删除，（remove和update互斥，必须一个选项存在）
+  - update : 对查询的结果进行修改，并更新到数据库
+  - new : （只对update时有效）
+  	- true : 返回的结果集为修改后的文档，而不是查询到的文档
+  	- false : 默认值，默认不修改查询时返回的结果集；
+  - fields ： 定义要返回的字段集
+  - upsert ：与update配合使用； 如果查询不到，则把query新增到数据库
+  - bypassDocumentValidation ： ？
+  - writeConcern ：？
+  - collation ： 指定字符串比较规则
+  	（https://docs.mongodb.com/manual/reference/collation/#collation-document-fields）
+  - arrayFilters：作用于update，用于确定需要更新的数组字段 （应用不熟悉） ？
+  
+  ```
+
+  
+
+- db.collection.findOne(query, projection) 
+
+- db.collection.findOneAndDelete(filter, options) 
+
+- 
+
+### 2.3.5 查询（数组）
+
+- https://docs.mongodb.com/manual/tutorial/query-arrays/
+- 分类
+  - 匹配数组
+  - 匹配数组中的元素
+
+- 测试数据
+
+  ```
+  db.inventory.insertMany([
+     { item: "journal", qty: 25, tags: ["blank", "red"], dim_cm: [ 14, 21 ] },
+     { item: "notebook", qty: 50, tags: ["red", "blank"], dim_cm: [ 14, 21 ] },
+     { item: "paper", qty: 100, tags: ["red", "blank", "plain"], dim_cm: [ 14, 21 ] },
+     { item: "planner", qty: 75, tags: ["blank", "red"], dim_cm: [ 22.85, 30 ] },
+     { item: "postcard", qty: 45, tags: ["blue"], dim_cm: [ 10, 15.25 ] }
+  ]);
+  ```
+
+- 匹配数组
+
+  - 例子
+
+  ```
+  // 按顺序匹配包含"red"和"blank"的数组
+  > db.inventory.find( { tags: ["red", "blank"] } )
+  
+  // 不按顺序匹配包含"red"和"blank"的数组：$all
+  > db.inventory.find( { tags: { $all: ["red", "blank"] } } )
+  
+  ```
+
+- 匹配数组中的元素
+
+  - 语法
+
+    ```
+    { <array field>: { <operator1>: <value1>, ... } }
+    ```
+
+  - 例子
+
+  ```
+  // 至少有一个元素满足条件即匹配
+  > db.inventory.find( { dim_cm: { $gt: 25 } } )
+  // 数组中的元素满足条件1，另一个元素满足条件2，或一个元素同时满足条件1和条件2
+  > db.inventory.find( { dim_cm: { $gt: 15, $lt: 20 } } )
+  // 数组中的一个元素同时满足所有条件:$elemMatch
+  > db.inventory.find( { dim_cm: { $elemMatch: { $gt: 22, $lt: 30 } } } )
+  
+  // 指定索引位置查询
+  > db.inventory.find( { "dim_cm.1": { $gt: 25 } } )
+  
+  // 查询指定长度的数组：$size
+  > db.inventory.find( { "tags": { $size: 3 } } )
+  ```
+
+
+
+  ## 2.4  index
 
 - 语法：
 
 - 例子
-
-  ```
-  >
-  >  ```
-  >  
-  >  ```
-
-  
 
 
 
@@ -593,7 +792,7 @@ https://www.processon.com/view/584e086be4b0d594ec874170#map
 > - $elemMatch
 > - $slice
 
-- $ ：返回匹配 到的第一个数组元素，（对已经查询到的结果，再处理）
+- **$** ：返回数组中匹配到的第一个元素，（对已经查询到的结果，再处理）
 
 - 例子
 
@@ -610,11 +809,13 @@ https://www.processon.com/view/584e086be4b0d594ec874170#map
   > db.students.find( { semester: 1, grades: { $gte: 85 } } )                  
   ```
 
-- $elemMatch ：返回匹配到的第一个字段，如果没有满足条件，则该部分的字段不返回
-  
+- **$elemMatch** ：数组中至少有一个元素同时满足查询所指定的**所有的条件**，
+
+  - 返回匹配到的第一个字段，如果没有满足条件，则该部分的字段不返回
+
 - https://docs.mongodb.com/manual/reference/operator/projection/elemMatch/#proj._S_elemMatch
   
-- $slice ：限制数据返回的项数
+- **$slice** ：限制数据返回的项数
 
   - db.collection.find( { field: value }, { array: {$slice: count } } );
   - db.collection.find( { field: value }, { array: {$slice: [skip,limit]} } );
@@ -623,14 +824,47 @@ https://www.processon.com/view/584e086be4b0d594ec874170#map
     - limit : 需要返回的数量
 
   ```
+  // 前5行
   > db.posts.find( {}, { comments: { $slice: 5 } } )
+  // 后5行
   > db.posts.find( {}, { comments: { $slice: -5 } } )
   > db.posts.find( {}, { comments: { $slice: [ 20, 10 ] } } )
   // 从倒数第20项开始的10条记录
-  > db.posts.find( {}, { comments: { $slice: [ -20, 10 ] } } )
+  ```
+> db.posts.find( {}, { comments: { $slice: [ -20, 10 ] } } )
+  
+  ```
+  
   ```
 
-  
+- $meta : 
+
+  - 作用：排序（sort）
+
+  - 语法：
+
+    ```
+    db.collection.find(
+       <query>,
+       { score: { $meta: "textScore" } }
+    )
+    ```
+
+  - 例子：
+
+    ```
+    // score 不是文档里面的字段，但是返回的结果集中包含该字段
+    db.bios.find(
+       { },
+       {
+         _id: 0,
+    		 name : 1 ,
+    		 score : {$meta : 'textScore'}
+       }
+    )
+    ```
+
+    
 
 
 
