@@ -176,3 +176,93 @@ $ curl "https://api.mapbox.com/uploads/v1/swe15041?access_token=sk.eyJ1Ijoic3dlM
 
 ```
 
+
+
+
+
+```
+bucket = tilestream-tilesets-production
+key = d6/_pending/0jk0eykq5n42ax10xbjjx3dkc/swe15041
+accessKeyId = ASIATNLVGLR2EX5N3I55
+secretAccessKey = dR5b+Y+YYFqfz1pKivB2U1+cVgQzGiLPnNFr7+qY
+sessionToken = FwoGZXIvYXdzECUaDLJ0FM1ZaNYjjcAlwyKVAmRqTy3CPwTrCww3PVSDoWtcFip6gVrqP1p0c1K/u2Np9HIAz1MDIrflnQX/W53g3k2olM+UbG1zYlIPDsNmMHWvQlemKUlJjHAnOK+GN0wkDPWF434E3tOTbXPdV/Q2KhgJDGd12hJYVsB4QowBN/dTdCYFExUX2giFG/mTpIo0+YrHka6S0RsdA8y2Hjkpei3Z2P214Rk1FQxTfEIcge05nDyjXyb8wjt4Zjwg8KQqwHApVawlvjJDjyBBcLhPJjqHe7ZYfq4CvDBSwkhz9UvYgqj0acB+hpR+ItSoXxYmRPhowXC9XumlzWxeJtWVbXlfvsgKYzSiXa+M/9RCKODGlVdJ/5uPhStMM4aZZJoU8RRFEP8otYn5+AUyKXBEW1I+vZkK6wLYSkNZbdKyr7H5yk5O5CltAZMS0BbtyOjWM7CX1lDT
+url = https://tilestream-tilesets-production.s3.amazonaws.com/d6/_pending/0jk0eykq5n42ax10xbjjx3dkc/swe15041
+s3Url: https://tilestream-tilesets-production.s3.amazonaws.com/d6/_pending/0jk0eykq5n42ax10xbjjx3dkc/swe15041?X-Amz-Security-Token=FwoGZXIvYXdzEKz%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDFnEDKaF8aac67tN0CKVAnIGwBXhZyJbP9hhBRuyyjkIucmWH8iqMckvoqNiWsbCJJJ4y5xXTsI0HkOJiYrvH7cG4X1hPj6ZMS6jovw7LJjZD3LKxXVf1qDzZea3q4onepZyNGA0kzBRXnqSAMhWice26rcz9ctFKDZfRNI0uM5eb0UllYN6FxKv%2FSTFonMT%2BCT38v09gSJDUMGbCFaVXm8Jj2eC%2FeOWoBcN5kl%2BksJJaQWpXy13A%2FPTYwPSf8SwPEXnlc4cy2QPXnfmZkWrRKCqMP43gHPBXvHR5bUF8bmUFhLnRJw5WdykNaUl9iVtpGE8LoTVyxEoHszAw8zCIhynnoIwy4uOf6IExom9V4jXyq0NQbG6mxBW7loT%2B34N6R%2FNGQoo4cDe%2BAUyKRHZbrXLhEY2nyrUsJ%2B2s0c1j6MX9GPy25g%2FkHobzpO8l%2BXrhJ%2Fbaj08&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20200727T030634Z&X-Amz-SignedHeaders=host&X-Amz-Expires=600&X-Amz-Credential=ASIATNLVGLR2OYFEQSS5%2F20200727%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=3aec43f19573c8be582bb539718e3867fa35eab53d7240f83a5846b4d05d171e
+upload to mapbox success
+UploadDataResponse{complete=false, tileset='swe15041.tileset001', error='null', id='ckd3xjnjl65iu23nz697022un', name='tileset001', modified=2020-07-27T03:06:35.135Z[UTC], created=2020-07-27T03:06:35.135Z[UTC], owner='swe15041', progress=0}
+
+curl "https://api.mapbox.com/uploads/v1/swe15041?access_token=sk.eyJ1Ijoic3dlMTUwNDEiLCJhIjoiY2tjdmF1Y3RoMDJpYzMwbWw2MmVqNGM4dCJ9.24EGX1r-Op8zDgsTDsIQ4A"
+
+curl "https://api.mapbox.com/uploads/v1/swe15041?access_token=pk.eyJ1Ijoic3dlMTUwNDEiLCJhIjoiY2tjdmE0cmdzMDI4djJzczNwNXd4OG1lcCJ9.tGSLscZqtsQz_4_hjlAXbQ"
+```
+
+
+
+
+
+```
+$ curl "https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/tilequery/-122.42901,37.80633.json?radius=10&access_token=pk.eyJ1Ijoic3dlMTUwNDEiLCJhIjoiY2tjdmE0cmdzMDI4djJzczNwNXd4OG1lcCJ9.tGSLscZqtsQz_4_hjlAXbQ"
+```
+
+
+
+```
+curl "https://api.mapbox.com/uploads/v1/jaydai/ckd5sgar93gno27l91z78nn11?access_token=sk.eyJ1IjoiamF5ZGFpIiwiYSI6ImNrOGEwcTFkMzAzZGMzbG16N3pwMmljeXEifQ.5MKaR9hW3Xpmg45sEeGIkA"
+
+curl "https://api.mapbox.com/uploads/v1/jaydai/ckcu9tuux1ajd29kgckntmofj?access_token=sk.eyJ1IjoiamF5ZGFpIiwiYSI6ImNrOGEwcTFkMzAzZGMzbG16N3pwMmljeXEifQ.5MKaR9hW3Xpmg45sEeGIkA"
+
+curl "https://api.mapbox.com/uploads/v1/jaydai/ckcuads4t307a27ls9st3b63h?access_token=sk.eyJ1IjoiamF5ZGFpIiwiYSI6ImNrOGEwcTFkMzAzZGMzbG16N3pwMmljeXEifQ.5MKaR9hW3Xpmg45sEeGIkA"
+
+curl "https://api.mapbox.com/uploads/v1/jaydai/ckd5sgar93gno27l91z78nn11?access_token=sk.eyJ1IjoiamF5ZGFpIiwiYSI6ImNrOGEwcTFkMzAzZGMzbG16N3pwMmljeXEifQ.5MKaR9hW3Xpmg45sEeGIkA"
+
+curl "https://api.mapbox.com/uploads/v1/jaydai/ckd5s6isk497z23rxfolxz1jc?access_token=sk.eyJ1IjoiamF5ZGFpIiwiYSI6ImNrOGEwcTFkMzAzZGMzbG16N3pwMmljeXEifQ.5MKaR9hW3Xpmg45sEeGIkA"
+
+curl "https://api.mapbox.com/uploads/v1/jaydai?access_token=sk.eyJ1IjoiamF5ZGFpIiwiYSI6ImNrOGEwcTFkMzAzZGMzbG16N3pwMmljeXEifQ.5MKaR9hW3Xpmg45sEeGIkA"
+ 
+ curl "https://api.mapbox.com/uploads/v1/jaydai/ckd5to0oj22rr24nraagrk77u?access_token=sk.eyJ1IjoiamF5ZGFpIiwiYSI6ImNrOHpuOTdndTA2eTQzbW42dWd3YzQ3dDkifQ.XiNYB7HkU0Kiff6mqgtPoA"
+```
+
+
+
+```
+上传数据到mapbox和后台流程
+1、绘制区域，组装tileset数据
+2、上报数据到mapbox（需要将数据上传暂存到ams s3服务器）
+3、获取mapbox处理数据的结果
+	3.1 如果成功，更新区域数据和上报数据状态及其他相关数据持久化处理
+	3.2 如果失败，更新上报数据状态，不做其他处理（失败原因多个）
+    
+失败持久化到数据库失败的原因：
+1、服务器进程终止时，线程超过25秒 且 未执行完成 被放弃执行
+2、mapbox服务器异常，无法接收或处理请求
+3、
+
+数据修复机制
+1、开启线程同步mapbox状态
+
+0730 更新上报流程
+1 上报数据到mapbox
+2 缓存 新的配送区域 数据到redis
+3 判断upload状态，
+3.1 如果数据被成功处理，则判断tileList数据是否被更新，是则将区域数据持久化到本地
+3.2 如果数据被处理失败或者异常，则告知前端处理失败
+	3.2.1 失败原因1: 数据保存失败，
+	3.2.2 失败原因2：数据格式错误，mapbox无法处理
+	3.2.3 失败原因3：
+
+```
+
+```
+$ curl "https://api.mapbox.com/tilesets/v1/swe15041?access_token=sk.eyJ1Ijoic3dlMTUwNDEiLCJhIjoiY2tjdmF1Y3RoMDJpYzMwbWw2MmVqNGM4dCJ9.24EGX1r-Op8zDgsTDsIQ4A"
+
+curl "https://api.mapbox.com/tilesets/v1/swe15041?type=vector&limit=25&sortby=created&access_token=sk.eyJ1Ijoic3dlMTUwNDEiLCJhIjoiY2tjdmF1Y3RoMDJpYzMwbWw2MmVqNGM4dCJ9.24EGX1r-Op8zDgsTDsIQ4A"
+
+```
+
+
+
+
+
+# bounding box
+
+![image-20200729143838259](mapbox.assets/image-20200729143838259.png)
