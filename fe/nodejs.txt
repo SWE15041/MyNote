@@ -1,0 +1,16 @@
+npm config set prefix "D:\nodejs\node_global"
+npm config set cache "D:\nodejs\node_cache"
+npm config set registry=http://registry.npm.taobao.org
+npm install vue -g
+npm install vue-router -g
+npm install vue-cli -g
+
+-----------------------
+NODE_PATH 
+C:\Program Files\nodejs\node_global\node_modules
+
+PATH
+
+------------------------
+npm install
+npm run dev

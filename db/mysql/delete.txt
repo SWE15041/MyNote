@@ -1,0 +1,49 @@
+
+select CONCAT('truncate TABLE ',table_schema,'.',TABLE_NAME, ';') from INFORMATION_SCHEMA.TABLES where  table_schema in ('etl');
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+truncate TABLE etl.allergens;
+truncate TABLE etl.bom_headers;
+truncate TABLE etl.bom_lines;
+truncate TABLE etl.change_histories;
+truncate TABLE etl.common_item_option_value_allergen_codes;
+truncate TABLE etl.common_item_option_values;
+truncate TABLE etl.common_item_options;
+truncate TABLE etl.flyway_schema_history;
+truncate TABLE etl.galley_concepts;
+truncate TABLE etl.item_recipes;
+truncate TABLE etl.item_restaurants;
+truncate TABLE etl.item_unit_conversions;
+truncate TABLE etl.item_unit_sequence_groups;
+truncate TABLE etl.items;
+truncate TABLE etl.menu_item;
+truncate TABLE etl.menu_item_option_value_allergen_names;
+truncate TABLE etl.menu_item_option_values;
+truncate TABLE etl.menu_item_options;
+truncate TABLE etl.related_recipe_items;
+truncate TABLE etl.restaurant_categories;
+truncate TABLE etl.restaurant_category_menu_items;
+truncate TABLE etl.restaurants;
+truncate TABLE etl.units;
+truncate TABLE etl.usage_wonder_recipe_version_ids;
+truncate TABLE etl.wonder_ingredient_allergens;
+truncate TABLE etl.wonder_ingredient_nutrition_facts;
+truncate TABLE etl.wonder_ingredient_preparations;
+truncate TABLE etl.wonder_ingredient_related_items;
+truncate TABLE etl.wonder_ingredient_unit_conversions;
+truncate TABLE etl.wonder_ingredient_units;
+truncate TABLE etl.wonder_ingredients;
+truncate TABLE etl.wonder_recipe_version_allergens;
+truncate TABLE etl.wonder_recipe_version_diets;
+truncate TABLE etl.wonder_recipe_version_galley_concept_ids;
+truncate TABLE etl.wonder_recipe_version_nutrition_facts;
+truncate TABLE etl.wonder_recipe_version_procedure_steps;
+truncate TABLE etl.wonder_recipe_version_procedures;
+truncate TABLE etl.wonder_recipe_version_recipe_item_preparations;
+truncate TABLE etl.wonder_recipe_version_recipe_items;
+truncate TABLE etl.wonder_recipe_version_related_items;
+truncate TABLE etl.wonder_recipe_version_unit_conversions;
+truncate TABLE etl.wonder_recipe_version_units;
+truncate TABLE etl.wonder_recipe_versions;
+truncate TABLE etl.wonder_recipes;
