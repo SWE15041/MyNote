@@ -10,7 +10,9 @@ https://github.com/wso2-extensions/esb-connector-dayforce/blob/master/docs/emplo
 
 ## 开发文档
 
- https://developers.dayforce.com/Special-Pages/Registration.aspx 
+https://developers.dayforce.com/Special-Pages/Registration.aspx 
+
+https://developers.dayforce.com/Special-Pages/Logon.aspx
 
 https://developers.dayforce.com/Build/API-Explorer/Employee-Employment-Information/Employment-Types/GET-Employee-Employment-Types.aspx
 
@@ -22,7 +24,12 @@ https://wso2.com/integration/integration-studio/
 
 
 
+## dayforce后台
 
+```
+https://usconfigr58.dayforcehcm.com/mydayforce/login.aspx
+
+```
 
 # 项目分析
 
@@ -81,3 +88,12 @@ https://wso2.com/integration/integration-studio/
 1、job1: 把dayforce上的employee数据更新到cosmos db。
 
 2、job2 : 把dayforce上的EmployeeAvailability数据更新到 cosmos db。
+
+
+
+
+
+# 接口
+
+1、获取可用员工
+

@@ -44,13 +44,39 @@ https://docs.microsoft.com/zh-cn/learn/modules/choose-api-for-cosmos-db/
 
 
 
-cosmos可视化管理工具：power bi desktop
+cosmos可视化管理工具：
+
+1、power bi desktop
 
 登录：主机地址/key
 
 使用教程：https://docs.microsoft.com/zh-cn/azure/cosmos-db/powerbi-visualize
 
+2、Azure Storage Explorer 
 
+https://docs.microsoft.com/en-us/azure/cosmos-db/storage-explorer
+
+
+
+![image-20200807104508793](cosmos.assets/image-20200807104508793.png)
+
+1、安装power shell 7 
+
+https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7
+
+2、安装 powerShellGet (win10以上已经内置了)
+
+https://docs.microsoft.com/en-us/powershell/scripting/gallery/installing-psget?view=powershell-7
+
+3、安装azure power shell
+
+https://docs.microsoft.com/en-us/powershell/azure/install-az-ps?view=azps-4.4.0#code-try-0	
+
+![image-20200807142239913](cosmos.assets/image-20200807142239913.png)
+
+4、安装Azure Cosmos DB ODBC驱动
+
+https://docs.microsoft.com/en-us/azure/cosmos-db/odbc-driver
 
 
 
