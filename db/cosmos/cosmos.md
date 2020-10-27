@@ -28,6 +28,8 @@ https://docs.azure.cn/zh-cn/cosmos-db/powerbi-visualize
 
 https://docs.microsoft.com/en-us/azure/cosmos-db/storage-explorer
 
+https://azure.microsoft.com/zh-cn/features/storage-explorer/
+
 ## 3  安装power shell 7 
 
 3.1 安装power shell 7 
