@@ -50,7 +50,13 @@ https://docs.microsoft.com/en-us/powershell/azure/install-az-ps?view=azps-4.4.0#
 
 https://docs.microsoft.com/en-us/azure/cosmos-db/odbc-driver
 
+## 4 连接配置
 
+- endpointUri: URI
+- 秘钥：主密钥 or 辅助密钥  
+- 连接字符串: 主要连接字符串 or 次要连接字符串
+
+![image-20201119092925855](cosmos.assets/image-20201119092925855.png)
 
 # cosmos开发文档
 
@@ -194,3 +200,79 @@ public class App {
 - 项：（相当于mongodb的document）
 
 一个 Cosmos DB 帐户包含零个或零个以上的数据库，一个数据库 (DB) 包含零个或零个以上的容器，一个容器包含零个或零个以上的项。
+
+
+
+# 分区
+
+作用：唯一索引（项的逻辑分区分区键+项ID）
+
+## 相关文档：
+
+https://www.c-sharpcorner.com/article/partitioning-in-cosmos-db/
+
+https://docs.microsoft.com/en-us/azure/cosmos-db/partitioning-overview
+
+https://github.com/Azure/azure-cosmosdb-js-server/edit/master/samples/stored-procedures/bulkDelete.js
+
+
+
+## 逻辑分区：
+
+```
+逻辑分区由分区键相同的项组成；
+新增项到容器时可自动创建逻辑分区；
+逻辑分区的数量没有限制，每个逻辑分区最多可容纳20GB数据；
+
+```
+
+## 物理分区
+
+```
+通过跨物理分区分布数据和吞吐量来扩展容器。
+容器中物理分区的数量取决于以下配置：
+预配置的吞吐量数量（每个单独的物理分区可以提供每秒高达10,000个请求单位的吞吐量）。
+总数据存储（每个单独的物理分区最多可以存储50GB数据）。
+容器中的物理分区总数没有限制。
+预配置的吞吐量在容器的物理分区之间平均分配。
+逻辑分区键可以共同使用被平均分配后的物理分区的预配置的吞吐量。
+
+```
+
+
+
+## 逻辑分区和物理分区的关系
+
+```
+一个或多个逻辑分区被映射到单个物理分区
+```
+
+
+
+## 分区键
+
+```
+分区键路径
+分区键值
+
+特点：
+选择分区键后，将无法就地更改它。
+如果需要更改分区键，则应使用所需的新分区键将数据移动到新容器中。
+所有基于JavaScript的存储过程和触发器的作用域仅限于单个逻辑分区。
+
+举例
+项：{"id":"1", "name":"a"}
+分区键路径：/name
+分区键值：a
+
+如何选用分区键：
+分区键值不可变
+高基数（使用该键值的项多）
+跨所有逻辑分区平均分配请求单位（RU）消耗和数据。？？
+
+什么时候选用项ID作为分区键：
+项ID具有业务含义,且需要经常被应用到的时候，像员工表的员工Id
+
+
+```
+
