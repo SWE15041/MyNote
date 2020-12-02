@@ -375,6 +375,7 @@ https://github.com/Azure/azure-cosmosdb-js-server/edit/master/samples/stored-pro
 文档：https://docs.microsoft.com/zh-cn/azure/cosmos-db/optimize-cost-reads-writes#measuring-the-ru-charge-of-a-request
 
 - 定义：进行数据库操作所需要的成本。
+
 - 作用：用来度量处理数据库操作时 **消耗的CPU、IO、内存资源** 所需要的成本。
 
 - 数据库操作：
@@ -384,10 +385,15 @@ https://github.com/Azure/azure-cosmosdb-js-server/edit/master/samples/stored-pro
 
 - 读取计费方式（以下读取操作消耗的RU从低到高）
 
-  - 点读（指定分区键和项ID进行查询）
-  - 指定在单个分区键内查询
-  - 没有指定任何分区 没有任何范围查询条件的语句（=、> 、< 等）
-  - 没有任何查询条件的语句
+  - 点读（同时指定分区键和项ID构造查询语句）
+  - 指定单个分区键构造查询语句
+  - 查询子句没有指定任何分区，且不包含等式查询或者范围查询条件
+  - 没有任何查询条件。
+
+- 查询优化
+
+  - 建容器时，合并多个实体（类似于合并shift表和truck session表）
+  - 降低查询的复杂性（谓词的使用：数量、性质？，源数据集大小？？？）
 
 - 写入计费方式
 
@@ -395,15 +401,36 @@ https://github.com/Azure/azure-cosmosdb-js-server/edit/master/samples/stored-pro
 
   - 写入的数据中包含索引类型的属性数量 
 
-  - 注：
+  - 批量写入可以优化RU的消耗
 
+  - 注：
+  
     ```
     Inserting a 1 KB item with less than 5 properties to index costs around 5 RUs. Replacing an item costs two times the charge required to insert the same item.
     
-    -- upsert 操作需要的RU数 是insert 的两倍
+  -- upsert 操作需要的RU数 是insert 的两倍
     ```
+  
+- 优化写入
 
-    
+  - 大项目写入azure blob 存储
+  - 优化索引策略
+
+# 降低成本
+
+## 优化预配吞吐量
+
+
+
+## 优化请求成本
+
+
+
+
+
+# JAVA批处理
+
+https://docs.microsoft.com/en-us/azure/cosmos-db/bulk-executor-java
 
 
 
