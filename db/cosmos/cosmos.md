@@ -41,6 +41,10 @@ Account key: C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZ
 
 1、power bi desktop
 
+2、VS Code (插件（Azure Databases）)
+
+3、
+
 ## 1 安装Power BI
 
 登录：主机地址/key
@@ -79,7 +83,34 @@ https://docs.microsoft.com/en-us/powershell/azure/install-az-ps?view=azps-4.4.0#
 
 https://docs.microsoft.com/en-us/azure/cosmos-db/odbc-driver
 
-## 4 连接配置
+## 4  VS Code (插件(Azure Databases))
+
+- 文档：https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-cosmosdb&ssr=false#overview
+
+- 操作：
+
+  - 例 View  -> Command Palette -> Attach  Databases  Account-> SQL
+
+  - 效果
+
+    ![image-20201203095802474](cosmos.assets/image-20201203095802474.png)
+
+- 功能
+
+  ```
+  Features
+  Azure Databases Explorer
+  Create a database server by clicking the + button in the title
+  View database servers and open directly in the portal
+  View/Create/Delete databases, collections, graphs, stored procedures, documents, and queries
+  Click on a document, stored procedure, or query to open in the editor
+  Click on a graph to visualize data
+  Query graph using Gremlin
+  Edit a document and persist changes to the cloud
+  Attach a Mongo server by clicking the plug icon in the title
+  ```
+
+## 连接配置
 
 - endpointUri: URI
 - 秘钥：主密钥 or 辅助密钥  
@@ -408,7 +439,12 @@ https://github.com/Azure/azure-cosmosdb-js-server/edit/master/samples/stored-pro
     ```
     Inserting a 1 KB item with less than 5 properties to index costs around 5 RUs. Replacing an item costs two times the charge required to insert the same item.
     
+    ```
+  
   -- upsert 操作需要的RU数 是insert 的两倍
+  
+    ```
+  
     ```
   
 - 优化写入
@@ -570,4 +606,5 @@ SLA: 全面的服务水平协议
   ```
 
   
-
+  
+  
