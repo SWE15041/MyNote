@@ -401,6 +401,39 @@ https://github.com/Azure/azure-cosmosdb-js-server/edit/master/samples/stored-pro
 
 
 
+# 预设吞吐量
+
+https://docs.microsoft.com/en-us/azure/cosmos-db/set-throughput
+
+- 操作对象：容器、数据库
+- 设置方式：自动伸缩、标准
+
+##  自动伸缩方式
+
+- 容器数： 最多25个
+- 吞吐量：400RU/s ~ unlimited 
+
+## 标准方式
+
+- 容器数：最多25个
+- 吞吐量：400RU/s ~ 4000RU/s
+
+## 吞吐量设置方式比较
+
+|                          | 标准吞吐量on DB                            | 自动缩放on DB                          | 标准on container     | 自动收缩on container     |
+| ------------------------ | ------------------------------------------ | -------------------------------------- | -------------------- | ------------------------ |
+| 初始化                   | 400 ~ unlimited RU/s<br />容器数：最多25个 | 400 ~ 4000 RU/s<br />容器数：最多 25个 | 400 ~ unlimited RU/s | 400 ~ 4000 RU/s          |
+| 特定容器可分配的RU数     | 不确定，取决于多种因素                     | 不确定，取决于多种因素                 | 取决于容器预设大小   | 取决于容器预设弹性大小？ |
+| 容器存储大小             | unlimited                                  | unlimited                              | unlimited            | unlimited                |
+| 单个逻辑分区的最大吞吐量 | 10K RU/s                                   | 10K RU/s                               | 10K RU/s             | 10K RU/s                 |
+| 单个逻辑分区的最大存储量 | 20 GB                                      | 20 GB                                  | 20 GB                | 20 GB                    |
+
+
+
+
+
+
+
 # 请求单位RU
 
 文档：https://docs.microsoft.com/zh-cn/azure/cosmos-db/optimize-cost-reads-writes#measuring-the-ru-charge-of-a-request
@@ -608,3 +641,6 @@ SLA: 全面的服务水平协议
   
   
   
+
+# JAVA应用
+
