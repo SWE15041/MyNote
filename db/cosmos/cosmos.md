@@ -35,7 +35,14 @@ Account key: C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZ
 
 - Infrastructure as a Service，基础设施即服务
 
-- 
+
+# 角色访问控制RBAC
+
+- 文档 ：
+  - https://docs.microsoft.com/en-us/azure/role-based-access-control/quickstart-assign-role-user-portal
+  - https://docs.microsoft.com/en-us/azure/role-based-access-control/check-access
+
+![image-20201214032832896](cosmos.assets/image-20201214032832896.png)
 
 # cosmos可视化管理工具：
 
@@ -398,11 +405,10 @@ https://github.com/Azure/azure-cosmosdb-js-server/edit/master/samples/stored-pro
 - 特点：
 
   - **分区键不可变**：选择分区键后，将无法就地更改它。（如果需要更改分区键，则应使用所需的新分区键将数据移动到新容器中。）
-  - **分区键值不可变**：项初始化完成后，分区键的键值不可变更（如果没有给分区键赋值，后续也不能再赋值，如果已经赋值，那个该值不可修改）。
+  - **分区键值不可变**：项初始化完成后，分区键的键值不可变更（如果没有给分区键赋值，后续也不能再赋值，如果已经赋值，那么该值不可修改）。
+  - **作用域**：所有基于JavaScript的存储过程和触发器的作用域 仅限于**单个逻辑分区**。
 
-- 知识点
-
-  - 所有基于JavaScript的存储过程和触发器的作用域 仅限于**单个逻辑分区**。
+- 一个容器可以设置的分区键数量：1个
 
 - 分区键的选择
 
@@ -430,7 +436,7 @@ https://github.com/Azure/azure-cosmosdb-js-server/edit/master/samples/stored-pro
     优点：
     值 唯一且范围广
   可以均分容器的吞吐量和存储容量
-    可以用作点读（查询速度快 且 低花费）
+    可以用作点读（查询速度快 且 低成本）
     对于有多个物理分区的大容器，查询高效
     
     缺点
@@ -440,7 +446,8 @@ https://github.com/Azure/azure-cosmosdb-js-server/edit/master/samples/stored-pro
     ```
     
 
-- 一个容器可以设置的分区键数量：1个
+  
+
 
 ```
 举例
@@ -461,27 +468,30 @@ https://github.com/Azure/azure-cosmosdb-js-server/edit/master/samples/stored-pro
 https://docs.microsoft.com/en-us/azure/cosmos-db/set-throughput
 
 - 操作对象：容器、数据库
-- 设置方式：自动伸缩、标准
+- 设置方式：自动伸缩预配吞吐量模式、 手动配置预配吞吐量模式
 
 ##  自动伸缩方式
 
 - 容器数： 最多25个
 - 吞吐量：400RU/s ~ unlimited 
 
-## 标准方式
+## 手动方式
 
 - 容器数：最多25个
 - 吞吐量：400RU/s ~ 4000RU/s
 
 ## 吞吐量设置方式比较
 
-|                          | 标准吞吐量on DB                            | 自动缩放on DB                          | 标准on container     | 自动收缩on container     |
-| ------------------------ | ------------------------------------------ | -------------------------------------- | -------------------- | ------------------------ |
-| 初始化                   | 400 ~ unlimited RU/s<br />容器数：最多25个 | 400 ~ 4000 RU/s<br />容器数：最多 25个 | 400 ~ unlimited RU/s | 400 ~ 4000 RU/s          |
-| 特定容器可分配的RU数     | 不确定，取决于多种因素                     | 不确定，取决于多种因素                 | 取决于容器预设大小   | 取决于容器预设弹性大小？ |
-| 容器存储大小             | unlimited                                  | unlimited                              | unlimited            | unlimited                |
-| 单个逻辑分区的最大吞吐量 | 10K RU/s                                   | 10K RU/s                               | 10K RU/s             | 10K RU/s                 |
-| 单个逻辑分区的最大存储量 | 20 GB                                      | 20 GB                                  | 20 GB                | 20 GB                    |
+|                          | 手动on DB              | 自动缩放on DB          | 手动on container   | 自动缩放on container     |
+| ------------------------ | ---------------------- | ---------------------- | ------------------ | ------------------------ |
+| 预配吞吐量范围           | 400 ~ 100,000 RU/s     | 400 ~ 4000 RU/s        | 400 ~ 100,000RU/s  | 4000 ~ unlimited RU/s    |
+| 容器数                   | 最多25个               | 最多25个               | -                  | -                        |
+| 特定容器可分配的RU数     | 不确定，取决于多种因素 | 不确定，取决于多种因素 | 取决于容器预设大小 | 取决于容器预设弹性大小？ |
+| 容器存储大小             | unlimited              | unlimited              | unlimited          | unlimited                |
+| 单个逻辑分区的最大吞吐量 | 10K RU/s               | 10K RU/s               | 10K RU/s           | 10K RU/s                 |
+| 单个逻辑分区的最大存储量 | 20 GB                  | 20 GB                  | 20 GB              | 20 GB                    |
+| 最低预配吞吐量           | 400RU/s                | 400RU/s                | 400RU/s            | 400RU/s                  |
+|                          |                        |                        |                    |                          |
 
 
 
@@ -547,6 +557,10 @@ https://docs.microsoft.com/en-us/azure/cosmos-db/set-throughput
 
 
 ## 优化请求成本
+
+
+
+
 
 
 
@@ -704,11 +718,46 @@ SLA: 全面的服务水平协议
 # 事务
 
 - 原文档：https://docs.microsoft.com/en-us/azure/cosmos-db/database-transactions-optimistic-concurrency#multi-item-transactions
-
 - 作用域：单个逻辑分区内的项
 - 实现方式：注册 存储过程、合并过程、UDF、触发器
 - 实现语言：JavaScript
 - 事务级别：快照隔离级别
+
+# 计费模式
+
+- 原文档：https://azure.microsoft.com/zh-cn/pricing/details/cosmos-db/
+
+- 计费相关：
+
+  - 资源的容量模式
+  - 数据库的总存储量（数据和索引）
+
+- 容量模式分类：
+
+  - 预配吞吐量模式
+
+  - 无服务模式
+
+  - 补充
+
+    ```
+    预配吞吐量模式（Provisioned Throughput）
+      手动预配吞吐量模式（Standard Provisioned Throughput）
+      自动缩放吞吐量模式（Autoscale Provisioned Throughput）
+    
+    无服务模式（Serverless）
+      按需处理流量突发，无需资源规划和管理
+      （也就是不能对数据库和容器的吞吐量进行手动或者自动配置）
+    
+    ```
+
+- 备份策略
+
+  - 默认副本数：2个
+
+    
+
+![image-20201214101142529](cosmos.assets/image-20201214101142529.png)
 
 # JAVA应用
 
