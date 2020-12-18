@@ -685,7 +685,9 @@ SLA: 全面的服务水平协议
     
     ```
 
-    
+- TTL （见：https://docs.microsoft.com/en-us/azure/cosmos-db/time-to-live）
+
+  
 
 ## 项
 
@@ -874,3 +876,74 @@ SLA: 全面的服务水平协议
 
 
 ## 跨N个区域的多区域写入
+
+
+
+# 存储分类
+
+- 分类 
+  - 事务存储
+  - 分析存储
+- 关系
+  - 两者独立存储，事务存储是传统的行式存储，分析存储是列式存储
+  - 
+  - 
+
+## 事务存储（transactional store）
+
+- 即：行式存储
+- 
+
+## 分析存储（Analytical store ）
+
+- 即：列式存储（见：https://docs.microsoft.com/en-us/azure/cosmos-db/analytical-store-introduction）
+- 操作对象：容器
+- 作用：
+  - 用于大数据集进行分析查询，可降低查询成本
+
+- 定义：
+  - 分析存储无需分配单独的请求单位 (RU)，
+  - 自动同步：完全托管功能给 Azure Cosmos DB ， 对操作数据执行的插入、更新、删除将准实时**自动**从事务存储**同步**到分析存储。
+
+- 优点：
+  - 解决了传统ETL管道出现的复杂性和延迟问题。
+  - 提高查询的响应时间
+
+- 注意点
+  - 任意级别属性个数超过200个时，不进行分析存储。
+  - 文档嵌套深度大于等于5级时，不进行分析存储。
+  - 字段名大小写不敏感，全部转为小写进行
+- 启用方式
+  - 手动触发，非默认（见：https://docs.microsoft.com/en-us/azure/cosmos-db/configure-synapse-link#create-analytical-ttl）
+- Analytical TTL
+  - 0 or null            :   不会进行分析存储
+  - -1 s（default）:   保留所有历史数据，包含在事务存储中过期的数据
+  - n  s                     :   事务存储中最后一次修改的时间到n秒后过期
+- 
+
+
+
+# TTL
+
+- 操作对象：容器Container、项Item、分析存储Analytical store
+- 文档：https://docs.microsoft.com/en-us/azure/cosmos-db/time-to-live
+- 优先级：
+  - 容器有启用TTL： 项TTL > 容器TTL > ?
+- 
+
+## 容器TTL
+
+- 单位：秒s
+- 值
+  - off (null): 无自动过期时间限制
+  - -1: 永不过期
+  - n（非0）：指定容器的过期时间
+- 设置TTL
+  - https://docs.microsoft.com/en-us/azure/cosmos-db/how-to-time-to-live?tabs=dotnetv2%2Cjavav4
+
+## 项TTL
+
+
+
+## 分析存储TTL
+
