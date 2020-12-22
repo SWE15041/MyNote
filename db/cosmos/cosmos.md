@@ -1050,5 +1050,35 @@ SLA: 全面的服务水平协议
 
 # change feed
 
-定义：监听容器发生的任何变化
+- 定义： 用于记录容器变更的有序操作顺序。
 
+- 监听对象：容器
+
+- 监听操作：容器项的**新增** 或 **更新**，*不记录* **删除** *操作*
+
+- 工作原理：监听容器发生的任何变化，输出文档的变更的排序列表，异步和增量处理持久化的变更文档。
+
+- 工作方式：
+
+  - with Azure Functions
+  - with change feed processor
+
+- change feed 处理器
+
+  - 处理器组成
+    - 被监控的容器：被监控的容器的任何插入和更新都会被映射到change feed当中
+    - 租赁容器：用于充当change feed的状态存储
+    - 主机：使用change feed处理器 监听 变化的应用实例
+    - 委托：自定义业务代码，用于 change feed处理器 读取到的每一批数据
+
+- sample
+
+  - https://github.com/Azure-Samples/cosmos-dotnet-change-feed-processor
+
+    ```
+    git@github.com:Azure-Samples/cosmos-dotnet-change-feed-processor.git
+    ```
+
+    
+
+  - 
