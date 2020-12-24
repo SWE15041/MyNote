@@ -8,6 +8,16 @@ Account key: C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZ
 
 
 
+## 学习规划
+
+1. 基本概念
+   1. partition
+   2. request unit and throughput
+   3. data model
+2. 语法
+3. 性能优化
+4. 
+
 # 拓展知识点
 
 ## 端到端
@@ -245,7 +255,7 @@ public class App {
 
 
 
-# cosmos核心概念
+# cosmos基本概念
 
 1、请求单位：
 
@@ -270,7 +280,7 @@ public class App {
 
 
 
-# 分区和分区键
+# 分区
 
 分区的对象：容器 
 
@@ -396,7 +406,7 @@ https://github.com/Azure/azure-cosmosdb-js-server/edit/master/samples/stored-pro
 
 - 映射关系： 一个或者多个逻辑分区可以映射到一个物理分区（物理分区：逻辑分区 = 1：n）
 
-## 分区键
+# 分区键
 
 - 组成：分区键路径 和分区键值
 
@@ -463,44 +473,6 @@ https://github.com/Azure/azure-cosmosdb-js-server/edit/master/samples/stored-pro
 
 
 
-
-
-# 预设吞吐量
-
-https://docs.microsoft.com/en-us/azure/cosmos-db/set-throughput
-
-- 操作对象：容器、数据库
-- 设置方式：自动伸缩预配吞吐量模式、 手动配置预配吞吐量模式
-
-##  自动伸缩方式
-
-- 容器数： 最多25个
-- 吞吐量：400RU/s ~ unlimited 
-
-## 手动方式
-
-- 容器数：最多25个
-- 吞吐量：400RU/s ~ 4000RU/s
-
-## 吞吐量设置方式比较
-
-|                          | 手动on DB              | 自动缩放on DB          | 手动on container   | 自动缩放on container     |
-| ------------------------ | ---------------------- | ---------------------- | ------------------ | ------------------------ |
-| 预配吞吐量范围           | 400 ~ 100,000 RU/s     | 400 ~ 4000 RU/s        | 400 ~ 100,000RU/s  | 4000 ~ unlimited RU/s    |
-| 容器数                   | 最多25个               | 最多25个               | -                  | -                        |
-| 特定容器可分配的RU数     | 不确定，取决于多种因素 | 不确定，取决于多种因素 | 取决于容器预设大小 | 取决于容器预设弹性大小？ |
-| 容器存储大小             | unlimited              | unlimited              | unlimited          | unlimited                |
-| 单个逻辑分区的最大吞吐量 | 10K RU/s               | 10K RU/s               | 10K RU/s           | 10K RU/s                 |
-| 单个逻辑分区的最大存储量 | 20 GB                  | 20 GB                  | 20 GB              | 20 GB                    |
-| 最低预配吞吐量           | 400RU/s                | 400RU/s                | 400RU/s            | 400RU/s                  |
-|                          |                        |                        |                    |                          |
-
-
-
-
-
-
-
 # 请求单位RU
 
 文档：https://docs.microsoft.com/zh-cn/azure/cosmos-db/optimize-cost-reads-writes#measuring-the-ru-charge-of-a-request
@@ -552,13 +524,75 @@ https://docs.microsoft.com/en-us/azure/cosmos-db/set-throughput
   - 大项目写入azure blob 存储
   - 优化索引策略
 
-# 降低成本
+# 吞吐量
 
-## 优化预配吞吐量
+https://docs.microsoft.com/en-us/azure/cosmos-db/set-throughput
+
+- 操作对象：容器、数据库
+- 设置方式：自动伸缩预配吞吐量模式、 手动配置预配吞吐量模式
+
+##  自动伸缩方式
+
+- 容器数： 最多25个
+- 吞吐量：400RU/s ~ unlimited 
+
+## 手动方式
+
+- 容器数：最多25个
+- 吞吐量：400RU/s ~ 4000RU/s
+
+## 吞吐量设置方式比较
 
 
 
-## 优化请求成本
+|                          | 手动on DB              | 自动缩放on DB          | 手动on container   | 自动缩放on container     |
+| ------------------------ | ---------------------- | ---------------------- | ------------------ | ------------------------ |
+| 预配吞吐量范围           | 400 ~ 100,000 RU/s     | 400 ~ 4000 RU/s        | 400 ~ 100,000RU/s  | 4000 ~ unlimited RU/s    |
+| 容器数                   | 最多25个               | 最多25个               | -                  | -                        |
+| 特定容器可分配的RU数     | 不确定，取决于多种因素 | 不确定，取决于多种因素 | 取决于容器预设大小 | 取决于容器预设弹性大小？ |
+| 容器存储大小             | unlimited              | unlimited              | unlimited          | unlimited                |
+| 单个逻辑分区的最大吞吐量 | 10K RU/s               | 10K RU/s               | 10K RU/s           | 10K RU/s                 |
+| 单个逻辑分区的最大存储量 | 20 GB                  | 20 GB                  | 20 GB              | 20 GB                    |
+| 最低预配吞吐量           | 400RU/s                | 400RU/s                | 400RU/s            | 400RU/s                  |
+|                          |                        |                        |                    |                          |
+
+# 存储
+
+- 分类 
+  - 事务存储
+  - 分析存储
+- 关系
+  - 两者独立存储，事务存储是传统的行式存储，分析存储是列式存储
+
+## 事务存储（transactional store）
+
+- 即：行式存储
+
+## 分析存储（Analytical store ）
+
+- 即：列式存储（见：https://docs.microsoft.com/en-us/azure/cosmos-db/analytical-store-introduction）
+- 操作对象：容器
+- 作用：
+  - 用于大数据集进行分析查询，可降低查询成本
+
+- 定义：
+  - 分析存储无需分配单独的请求单位 (RU)，
+  - 自动同步：完全托管功能给 Azure Cosmos DB ， 对操作数据执行的插入、更新、删除将准实时**自动**从事务存储**同步**到分析存储。
+
+- 优点：
+  - 解决了传统ETL管道出现的复杂性和延迟问题。
+  - 提高查询的响应时间
+
+- 注意点
+  - 任意级别属性个数超过200个时，不进行分析存储。
+  - 文档嵌套深度大于等于5级时，不进行分析存储。
+  - 字段名大小写不敏感，全部转为小写进行
+- 启用方式
+  - 手动触发，非默认（见：https://docs.microsoft.com/en-us/azure/cosmos-db/configure-synapse-link#create-analytical-ttl）
+- Analytical TTL
+  - 0 or null            :   不会进行分析存储
+  - -1 s（default）:   保留所有历史数据，包含在事务存储中过期的数据
+  - n  s                     :   事务存储中最后一次修改的时间到n秒后过期
 
 
 
@@ -729,14 +763,17 @@ SLA: 全面的服务水平协议
 
 # 计费模式
 
-- 原文档：https://azure.microsoft.com/zh-cn/pricing/details/cosmos-db/
+- 原文档：
+
+  - https://azure.microsoft.com/zh-cn/pricing/details/cosmos-db/
+  - https://docs.microsoft.com/en-us/azure/cosmos-db/concepts-limits
 
 - 在线计费：https://azure.microsoft.com/zh-cn/pricing/calculator/?service=bandwidth
 
 - 计费相关：
 
-  - 资源的容量模式
-  - 数据库的总存储量（数据和索引）
+  - 容量模式
+  - 存储（数据和索引的存储总量）
 
 - 容量模式分类：
 
@@ -758,14 +795,10 @@ SLA: 全面的服务水平协议
 - 备份策略
 
   - 默认副本数：2个（免费，>2的副本数需要额外收费）
-  
-- 
-  
-- 
-
-  
 
 ![image-20201214101142529](cosmos.assets/image-20201214101142529.png)
+
+
 
 ## 预配吞吐量成本计算
 
@@ -937,20 +970,17 @@ SLA: 全面的服务水平协议
 
 
 
-# 存储分类
+# 存储
 
 - 分类 
   - 事务存储
   - 分析存储
 - 关系
   - 两者独立存储，事务存储是传统的行式存储，分析存储是列式存储
-  - 
-  - 
 
 ## 事务存储（transactional store）
 
 - 即：行式存储
-- 
 
 ## 分析存储（Analytical store ）
 
@@ -977,7 +1007,6 @@ SLA: 全面的服务水平协议
   - 0 or null            :   不会进行分析存储
   - -1 s（default）:   保留所有历史数据，包含在事务存储中过期的数据
   - n  s                     :   事务存储中最后一次修改的时间到n秒后过期
-- 
 
 
 
@@ -1042,8 +1071,11 @@ SLA: 全面的服务水平协议
 
 # 索引
 
-- 见：https://docs.microsoft.com/en-us/azure/cosmos-db/index-policy
+- 见：
 
+  - https://docs.microsoft.com/en-us/azure/cosmos-db/index-policy
+  - https://docs.microsoft.com/en-us/azure/cosmos-db/index-overview
+  
   
 
 
