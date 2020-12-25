@@ -1114,3 +1114,22 @@ SLA: 全面的服务水平协议
     
 
   - 
+
+# Cosmos SDK
+
+- java SDK version: https://search.maven.org/artifact/com.azure/azure-cosmos
+- github : 
+- sample: https://github.com/Azure-Samples/azure-cosmos-db-sql-api-async-java-getting-started
+- 问题排查
+  - https://docs.microsoft.com/en-us/azure/cosmos-db/troubleshoot-java-sdk-v4-sql#common-issues-workarounds
+  - 
+
+# 区域 region
+
+- 文档
+  - https://azure.microsoft.com/zh-cn/global-infrastructure/geographies/#services
+  - 
+
+
+
+# Consistency level
