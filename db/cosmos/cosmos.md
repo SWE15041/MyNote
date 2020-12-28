@@ -1080,40 +1080,40 @@ SLA: 全面的服务水平协议
 
 
 
-# change feed
+# Change feed
 
 - 定义： 用于记录容器变更的有序操作顺序。
-
 - 监听对象：容器
-
 - 监听操作：容器项的**新增** 或 **更新**，*不记录* **删除** *操作*
-
 - 工作原理：监听容器发生的任何变化，输出文档的变更的排序列表，异步和增量处理持久化的变更文档。
-
 - 工作方式：
 
   - with Azure Functions
   - with change feed processor
 
-- change feed 处理器
+- Features
 
-  - 处理器组成
-    - 被监控的容器：被监控的容器的任何插入和更新都会被映射到change feed当中
-    - 租赁容器：用于充当change feed的状态存储
-    - 主机：使用change feed处理器 监听 变化的应用实例
-    - 委托：自定义业务代码，用于 change feed处理器 读取到的每一批数据
+  ```
+  enabled default
+  ```
+
+  
+
+## Change feed processor
 
 - sample
-
+  - `git@github.com:Azure-Samples/cosmos-dotnet-change-feed-processor.git`
   - https://github.com/Azure-Samples/cosmos-dotnet-change-feed-processor
-
-    ```
-    git@github.com:Azure-Samples/cosmos-dotnet-change-feed-processor.git
-    ```
-
-    
-
+  - https://docs.microsoft.com/en-us/azure/cosmos-db/sql-api-sdk-java-v4
+  - https://docs.microsoft.com/en-us/azure/cosmos-db/create-sql-api-java-changefeed
   - 
+- 处理器组成
+  - 被监控的容器：
+    - Change feed的数据源（被监控容器的任何插入和更新的项）
+  - 租赁容器：用于充当change feed的状态存储 和  协调处理Change feed
+  - 主机：使用**change feed处理器** 监听 changes的**应用实例**
+  - 委托：自定义业务代码，用于处理**change feed处理器** 读取到的每一批数据
+- 
 
 # Cosmos SDK
 
