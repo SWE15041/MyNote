@@ -1083,9 +1083,13 @@ SLA: 全面的服务水平协议
 # Change feed
 
 - 定义： 用于记录容器变更的有序操作顺序。
+
 - 监听对象：容器
+
 - 监听操作：容器项的**新增** 或 **更新**，*不记录* **删除** *操作*
+
 - 工作原理：监听容器发生的任何变化，输出文档的变更的排序列表，异步和增量处理持久化的变更文档。
+
 - 工作方式：
 
   - with Azure Functions
@@ -1096,6 +1100,46 @@ SLA: 全面的服务水平协议
   ```
   enabled default
   ```
+
+- 成本
+
+  - change feed 每次启动都会花费一定的成本
+
+- 作用
+
+  - 通过更改来触发附加的操作
+  - 
+
+- 例子
+
+  - https://azurecosmosdb.github.io/labs/dotnet/labs/08-change_feed_with_azure_functions.html
+
+- 设计模式
+
+  - 事件计算和通知（Event computing and notifications）
+  - 实时流处理（Real-time stream processing）
+  - 零停机数据迁移
+  - 
+
+- 工作原理
+
+  ```
+  角色
+  被监控的容器：A
+  租约容器： B
+  主机实例：change feed processor 所在的应用程序XXX
+  委托：具体的业务处理 
+  
+  1. 创建容器
+  2. 在应用程序中创建change feed processor,并将容器关系织入处理器中；（处理的主机，被监控的容器，租约容器）
+  3. 启动程序
+  4. 操作被监控的容器
+  5. 
+  
+  
+  ```
+
+  
 
   
 
@@ -1113,7 +1157,26 @@ SLA: 全面的服务水平协议
   - 租赁容器：用于充当change feed的状态存储 和  协调处理Change feed
   - 主机：使用**change feed处理器** 监听 changes的**应用实例**
   - 委托：自定义业务代码，用于处理**change feed处理器** 读取到的每一批数据
-- 
+- monitor processor
+  - https://docs.microsoft.com/en-us/azure/cosmos-db/how-to-use-change-feed-estimator
+  - 
+
+## Change feed estimator
+
+- 即：change feed 估算器
+
+- 作用：监视进度
+
+- 工作流程
+
+  - 度量上一个处理项
+  - 度量的时间间隔：默认5秒
+
+- 工作原理
+
+  - 更改源估算器不需部署在更改源处理器中，也不需部署在同一项目中。 它可以是独立的，可以运行在完全不同的实例中。 它只需使用同一名称和租用配置。
+
+    
 
 # Cosmos SDK
 
@@ -1133,3 +1196,19 @@ SLA: 全面的服务水平协议
 
 
 # Consistency level
+
+
+
+# connection mode
+
+- 文档
+  - https://docs.microsoft.com/en-us/azure/cosmos-db/sql-sdk-connection-modes
+  - 
+
+# connection protocol
+
+
+
+
+
+# Azure Functions
