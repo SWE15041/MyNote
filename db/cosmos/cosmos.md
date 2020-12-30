@@ -1151,15 +1151,24 @@ SLA: 全面的服务水平协议
   - https://docs.microsoft.com/en-us/azure/cosmos-db/sql-api-sdk-java-v4
   - https://docs.microsoft.com/en-us/azure/cosmos-db/create-sql-api-java-changefeed
   - 
+  
 - 处理器组成
   - 被监控的容器：
     - Change feed的数据源（被监控容器的任何插入和更新的项）
   - 租赁容器：用于充当change feed的状态存储 和  协调处理Change feed
   - 主机：使用**change feed处理器** 监听 changes的**应用实例**
   - 委托：自定义业务代码，用于处理**change feed处理器** 读取到的每一批数据
+  
 - monitor processor
   - https://docs.microsoft.com/en-us/azure/cosmos-db/how-to-use-change-feed-estimator
-  - 
+  
+- options
+
+  ```
+  
+  ```
+
+  
 
 ## Change feed estimator
 
@@ -1212,3 +1221,11 @@ SLA: 全面的服务水平协议
 
 
 # Azure Functions
+
+
+
+# Azure Monitor 
+
+- 文档 ：
+  - https://docs.microsoft.com/en-us/azure/cosmos-db/monitor-cosmos-db
+  - https://docs.microsoft.com/en-us/azure/azure-monitor/overview
