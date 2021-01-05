@@ -1107,7 +1107,7 @@ SLA: 全面的服务水平协议
 
 - 作用
 
-  - 通过更改来触发附加的操作
+  - 通过change feed 来触发附加的操作
   - 
 
 - 例子
@@ -1125,23 +1125,22 @@ SLA: 全面的服务水平协议
 
   ```
   角色
-  被监控的容器：A
+  被监听的容器：A
   租约容器： B
   主机实例：change feed processor 所在的应用程序XXX
   委托：具体的业务处理 
   
   1. 创建容器
-  2. 在应用程序中创建change feed processor,并将容器关系织入处理器中；（处理的主机，被监控的容器，租约容器）
+  2. 在应用程序中创建change feed processor,并将监听关系织入处理器中；（处理的主机，被监听的容器，租约容器）
   3. 启动程序
   4. 操作被监控的容器
-  5. 
+  5. 查看附件操作的处理结果
   
   
   ```
 
   
 
-  
 
 ## Change feed processor
 
@@ -1159,39 +1158,43 @@ SLA: 全面的服务水平协议
   - 主机：使用**change feed处理器** 监听 changes的**应用实例**
   - 委托：自定义业务代码，用于处理**change feed处理器** 读取到的每一批数据
   
-- monitor processor
-  - https://docs.microsoft.com/en-us/azure/cosmos-db/how-to-use-change-feed-estimator
-  
 - options
 
   ```
   
   ```
 
-  
+- sdk 相关
+
+  - https://projectreactor.io/docs/core/release/api/reactor/core/scheduler/Schedulers.html
+  - 
 
 ## Change feed estimator
 
 - 即：change feed 估算器
-
+- 文档
+- https://docs.microsoft.com/en-us/azure/cosmos-db/how-to-use-change-feed-estimator
 - 作用：监视进度
-
 - 工作流程
 
   - 度量上一个处理项
   - 度量的时间间隔：默认5秒
-
 - 工作原理
 
   - 更改源估算器不需部署在更改源处理器中，也不需部署在同一项目中。 它可以是独立的，可以运行在完全不同的实例中。 它只需使用同一名称和租用配置。
 
-    
-
 # Cosmos SDK
 
 - java SDK version: https://search.maven.org/artifact/com.azure/azure-cosmos
+
 - github : 
+
+  ```bash
+  git clone https://github.com/Azure-Samples/azure-cosmos-java-sql-app-example.git
+  ```
+
 - sample: https://github.com/Azure-Samples/azure-cosmos-db-sql-api-async-java-getting-started
+
 - 问题排查
   - https://docs.microsoft.com/en-us/azure/cosmos-db/troubleshoot-java-sdk-v4-sql#common-issues-workarounds
   - 
@@ -1222,7 +1225,8 @@ SLA: 全面的服务水平协议
 
 # Azure Functions
 
-
+- 文档
+  - 
 
 # Azure Monitor 
 
