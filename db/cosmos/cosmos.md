@@ -20,6 +20,16 @@ Account key: C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZ
 
 # 拓展知识点
 
+## Java
+
+### Flux and Mono用法
+
+
+
+### reactor 响应式编程
+
+
+
 ## 端到端
 
 ```
@@ -1167,7 +1177,101 @@ SLA: 全面的服务水平协议
 - sdk 相关
 
   - https://projectreactor.io/docs/core/release/api/reactor/core/scheduler/Schedulers.html
+
+- 工作流程
+
+  - 步骤
+
+    ```
+    step1 
+    初始化 change feed processor 处理器
+    step2
+    启动 change feed processor 处理器
+    
+    ```
+
+    
+
+  - lease container ---- item sample
+
+    ```
+    {
+        "id": "ftidev-main.documents.azure.com_EmployeeDB_shifts..0",
+        "_etag": "\"fb04f15d-0000-0100-0000-5ff524b40000\"",
+        "LeaseToken": "0",
+        "ContinuationToken": "\"1960979\"",
+        "timestamp": "2021-01-06T02:47:16.188716283Z",
+        "Owner": "shift-scheduler-service",
+        "_rid": "Dc5FAK7GWlACAAAAAAAAAA==",
+        "_self": "dbs/Dc5FAA==/colls/Dc5FAK7GWlA=/docs/Dc5FAK7GWlACAAAAAAAAAA==/",
+        "_attachments": "attachments/",
+        "_ts": 1609901236
+    }
+    ```
+
+  - lease container ---- sample explain
+
+    ```
+    id
+    id 必须是容器的分区键
+    id = optionsPrefix + ServiceEndpointHost +"_"+DBName+"_"+""+monitoredContainerName+".."+
+    ```
+
+    
+
+  ```
+  ChangeFeedProcessor
+  LeaseStoreManager
+  PartitionManager
+  
+  LEASE_STORE_MANAGER_LEASE_SUFFIX = ".."
+  containerNamePrefix
+  sql:
+  	SELECT * FROM c WHERE STARTSWITH(c.id, "ftidev-main.documents.azure.com_EmployeeDB_shifts..")
+  LeasePrefix = ""
+  
+  id = optionsPrefix + uri+"_"+DBName+"_"+""+monitoredContainerName+".."+
+  
+  ```
+
+​    
+
   - 
+
+    ```java
+     private String getLeasePrefix() {
+            String optionsPrefix = this.changeFeedProcessorOptions.getLeasePrefix();
+    
+            if (optionsPrefix == null) {
+                optionsPrefix = "";
+            }
+    
+            URI uri = this.feedContextClient.getServiceEndpoint();
+    
+            return String.format(
+                "%s%s_%s_%s",
+                optionsPrefix,
+                uri.getHost(),
+                this.databaseResourceId,
+                this.collectionResourceId);
+        }
+    
+        @Override
+        public Mono<Void> start() {
+            return this.bootstrapper.initialize()
+                .then(this.partitionController.initialize())
+                .then(this.partitionLoadBalancer.start());
+        }
+    
+    ```
+
+- 问题
+
+  ```
+  the RX Java scheduler to observe on.
+  ```
+
+  
 
 ## Change feed estimator
 
