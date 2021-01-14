@@ -5,8 +5,9 @@
 # 请求单位RU
 
 - 文档：
-  - https://docs.microsoft.com/zh-cn/azure/cosmos-db/optimize-cost-reads-writes#measuring-the-ru-charge-of-a-request
-
+  
+- https://docs.microsoft.com/zh-cn/azure/cosmos-db/optimize-cost-reads-writes#measuring-the-ru-charge-of-a-request
+  
 - 定义：进行数据库操作所需要的成本。
 
 - 作用：用来度量处理数据库操作时 **消耗的CPU、IO、内存资源** 所需要的成本。
@@ -523,12 +524,22 @@ https://docs.microsoft.com/en-us/azure/cosmos-db/set-throughput
 
 - 监听操作：容器项的**新增** 或 **更新**，*不记录* **删除** *操作*
 
+- 作用
+
+  - 通过change feed 来触发附加的操作
+
 - 工作原理：监听容器发生的任何变化，输出文档的变更的排序列表，异步和增量处理持久化的变更文档。
 
 - 工作方式：
 
   - with Azure Functions
   - with change feed processor
+
+- 成本
+
+  - change feed 每次启动都会花费一定的成本
+
+- https://azurecosmosdb.github.io/labs/dotnet/labs/08-change_feed_with_azure_functions.html
 
 - change feed 处理器
 

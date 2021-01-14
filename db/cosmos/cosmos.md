@@ -1098,6 +1098,8 @@ SLA: 全面的服务水平协议
 
 - 监听操作：容器项的**新增** 或 **更新**，*不记录* **删除** *操作*
 
+- 作用：通过change feed 来触发附加的操作
+
 - 工作原理：监听容器发生的任何变化，输出文档的变更的排序列表，异步和增量处理持久化的变更文档。
 
 - 工作方式：
@@ -1105,33 +1107,21 @@ SLA: 全面的服务水平协议
   - with Azure Functions
   - with change feed processor
 
-- Features
-
-  ```
-  enabled default
-  ```
-
 - 成本
 
   - change feed 每次启动都会花费一定的成本
-
-- 作用
-
-  - 通过change feed 来触发附加的操作
-  - 
 
 - 例子
 
   - https://azurecosmosdb.github.io/labs/dotnet/labs/08-change_feed_with_azure_functions.html
 
-- 设计模式
+- 应用
 
   - 事件计算和通知（Event computing and notifications）
   - 实时流处理（Real-time stream processing）
   - 零停机数据迁移
-  - 
-
-- 工作原理
+  
+- 工作流程 - 概要
 
   ```
   角色
@@ -1145,22 +1135,86 @@ SLA: 全面的服务水平协议
   3. 启动程序
   4. 操作被监控的容器
   5. 查看附件操作的处理结果
+  ```
+
+
+## Lease container
+
+- item sample 
+
+  ```
+  {
+      "id": "ftidev-main.documents.azure.com_EmployeeDB_shifts..0",
+      "_etag": "\"fb04f15d-0000-0100-0000-5ff524b40000\"",
+      "LeaseToken": "0",
+      "ContinuationToken": "\"1960979\"",
+      "timestamp": "2021-01-06T02:47:16.188716283Z",
+      "Owner": "shift-scheduler-service",
+      "_rid": "Dc5FAK7GWlACAAAAAAAAAA==",
+      "_self": "dbs/Dc5FAA==/colls/Dc5FAK7GWlA=/docs/Dc5FAK7GWlACAAAAAAAAAA==/",
+      "_attachments": "attachments/",
+      "_ts": 1609901236
+  }
+  ```
+
+- item explain
+
+  ```
+  sql: SELECT * FROM c WHERE STARTSWITH(c.id, "ftidev-main.documents.azure.com_EmployeeDB_shifts..")
   
+  --- id ---
+  id 必须是容器的分区键
+  id = optionsPrefix + ServiceEndpointHost +"_"+DBName+"_"+""+monitoredContainerName+".."+ other
   
+  id的组成部分(前缀："%s%s_%s_%s" 后缀："..")
+  optionsPrefix: 初始化change feed processeor时设置，默认为空；
+  ServiceEndpointHost: 当前cosmos db的所在的主机名，即连接cosmos db的uri
+  _DBName_: 数据库名称
+  monitoredContainerName: 被监控的容器名字
+  
+  .. : 后缀 LEASE_STORE_MANAGER_LEASE_SUFFIX
+  
+  other: ？？
+  --- Owner ---
+  Owner：应用名
+  
+  ```
+
+- core code
+
+  ```java
+   private String getLeasePrefix() {
+          String optionsPrefix = this.changeFeedProcessorOptions.getLeasePrefix();
+  
+          if (optionsPrefix == null) {
+              optionsPrefix = "";
+          }
+  
+          URI uri = this.feedContextClient.getServiceEndpoint();
+  
+          return String.format(
+              "%s%s_%s_%s",
+              optionsPrefix,
+              uri.getHost(),
+              this.databaseResourceId,
+              this.collectionResourceId);
+      }
   ```
 
   
 
-
 ## Change feed processor
 
-- sample
-  - `git@github.com:Azure-Samples/cosmos-dotnet-change-feed-processor.git`
-  - https://github.com/Azure-Samples/cosmos-dotnet-change-feed-processor
-  - https://docs.microsoft.com/en-us/azure/cosmos-db/sql-api-sdk-java-v4
-  - https://docs.microsoft.com/en-us/azure/cosmos-db/create-sql-api-java-changefeed
-  - 
-  
+- 文档
+  - sdk: 
+    -  https://docs.microsoft.com/en-us/azure/cosmos-db/sql-api-sdk-java-v4
+    -  https://projectreactor.io/docs/core/release/api/reactor/core/scheduler/Schedulers.html
+
+
+  - sample: 
+    -  https://docs.microsoft.com/en-us/azure/cosmos-db/create-sql-api-java-changefeed
+    -  https://github.com/Azure-Samples/azure-cosmos-java-sql-api-samples
+
 - 处理器组成
   - 被监控的容器：
     - Change feed的数据源（被监控容器的任何插入和更新的项）
@@ -1168,102 +1222,44 @@ SLA: 全面的服务水平协议
   - 主机：使用**change feed处理器** 监听 changes的**应用实例**
   - 委托：自定义业务代码，用于处理**change feed处理器** 读取到的每一批数据
   
-- options
-
-  ```
-  
-  ```
-
-- sdk 相关
-
-  - https://projectreactor.io/docs/core/release/api/reactor/core/scheduler/Schedulers.html
-
 - 工作流程
 
   - 步骤
 
     ```
-    step1 
-    初始化 change feed processor 处理器
-    step2
-    启动 change feed processor 处理器
-    
-    ```
-
-    
-
-  - lease container ---- item sample
-
-    ```
-    {
-        "id": "ftidev-main.documents.azure.com_EmployeeDB_shifts..0",
-        "_etag": "\"fb04f15d-0000-0100-0000-5ff524b40000\"",
-        "LeaseToken": "0",
-        "ContinuationToken": "\"1960979\"",
-        "timestamp": "2021-01-06T02:47:16.188716283Z",
-        "Owner": "shift-scheduler-service",
-        "_rid": "Dc5FAK7GWlACAAAAAAAAAA==",
-        "_self": "dbs/Dc5FAA==/colls/Dc5FAK7GWlA=/docs/Dc5FAK7GWlACAAAAAAAAAA==/",
-        "_attachments": "attachments/",
-        "_ts": 1609901236
-    }
-    ```
-
-  - lease container ---- sample explain
-
-    ```
-    id
-    id 必须是容器的分区键
-    id = optionsPrefix + ServiceEndpointHost +"_"+DBName+"_"+""+monitoredContainerName+".."+
-    ```
-
-    
-
-  ```
-  ChangeFeedProcessor
-  LeaseStoreManager
-  PartitionManager
+    step 1
+    创建DB 
+    step 2
+    创建容器（被监听的容器 and 租约容器）
+    step 3
+    在应用程序中初始化change feed processor,包括（设置监听的容器和租约容器，编写委托代码）
+  step 4
+    启用change feed processor
   
-  LEASE_STORE_MANAGER_LEASE_SUFFIX = ".."
-  containerNamePrefix
-  sql:
-  	SELECT * FROM c WHERE STARTSWITH(c.id, "ftidev-main.documents.azure.com_EmployeeDB_shifts..")
-  LeasePrefix = ""
+    ps:
+  1. 当被监听的容器发生 更新or插入 操作的时候，chang feed processor 会把发生这些变更的操作的数据发送给委托处理
+    2. 物理删item的时候，被删的数据不能被委托代码处理；可以通过设置ttl，在item过期之前将该item 交给委托处理。
+    ```
   
-  id = optionsPrefix + uri+"_"+DBName+"_"+""+monitoredContainerName+".."+
+  - core class
   
-  ```
-
-​    
-
-  - 
-
     ```java
-     private String getLeasePrefix() {
-            String optionsPrefix = this.changeFeedProcessorOptions.getLeasePrefix();
-    
-            if (optionsPrefix == null) {
-                optionsPrefix = "";
-            }
-    
-            URI uri = this.feedContextClient.getServiceEndpoint();
-    
-            return String.format(
-                "%s%s_%s_%s",
-                optionsPrefix,
-                uri.getHost(),
-                this.databaseResourceId,
-                this.collectionResourceId);
-        }
-    
-        @Override
+    ChangeFeedProcessor
+    LeaseStoreManager
+    PartitionManager
+    ```
+  
+  - core code
+  
+    ```java
+      @Override
         public Mono<Void> start() {
-            return this.bootstrapper.initialize()
+          return this.bootstrapper.initialize()
                 .then(this.partitionController.initialize())
                 .then(this.partitionLoadBalancer.start());
         }
-    
     ```
+  
 
 - 问题
 
@@ -1287,6 +1283,8 @@ SLA: 全面的服务水平协议
 
   - 更改源估算器不需部署在更改源处理器中，也不需部署在同一项目中。 它可以是独立的，可以运行在完全不同的实例中。 它只需使用同一名称和租用配置。
 
+
+
 # Cosmos SDK
 
 - java SDK version: https://search.maven.org/artifact/com.azure/azure-cosmos
@@ -1301,7 +1299,8 @@ SLA: 全面的服务水平协议
 
 - 问题排查
   - https://docs.microsoft.com/en-us/azure/cosmos-db/troubleshoot-java-sdk-v4-sql#common-issues-workarounds
-  - 
+  
+  
 
 # 区域 region
 
