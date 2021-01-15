@@ -26,7 +26,7 @@
 
 # 响应式编程
 
-https://projectreactor.io/docs/core/release/reference/
+素人分享
 
 https://www.jianshu.com/p/8cb66e912641
 
@@ -40,13 +40,29 @@ https://www.cnblogs.com/crazymakercircle/p/9833847.html
 
 
 
+专业站点
+
+https://projectreactor.io/
+
+https://projectreactor.io/docs/core/release/reference/
+
+https://tech.io/playgrounds/929/reactive-programming-with-reactor-3/Intro
+
+
+
 优点：
 
 传统的，维持客户端和服务端的连接、读取、写入等操作时，当多个C端需要在服务端维持长连接，s端需要花费很大的开销。
 
 
 
-# Rx Java
+`Mono<Void>`: 仅关注信号完成的情况
+
+
+
+
+
+# Rx Java（弃用in azure sdk）
 
 
 

@@ -1088,8 +1088,6 @@ SLA: 全面的服务水平协议
   
   
 
-
-
 # Change feed
 
 - 定义： 用于记录容器变更的有序操作顺序。
@@ -1100,7 +1098,18 @@ SLA: 全面的服务水平协议
 
 - 作用：通过change feed 来触发附加的操作
 
+- 排序规则：逻辑分区建值内部的item 按照 最新修改时间 排序
+
 - 工作原理：监听容器发生的任何变化，输出文档的变更的排序列表，异步和增量处理持久化的变更文档。
+
+- 并行处理数据单位： logical partition key 
+
+- 读取模式：
+
+  - push model （建议）
+  - pull model
+
+- consistency level: session以上
 
 - 工作方式：
 
@@ -1115,9 +1124,9 @@ SLA: 全面的服务水平协议
 
   - https://azurecosmosdb.github.io/labs/dotnet/labs/08-change_feed_with_azure_functions.html
 
-- 应用
+- 应用场景
 
-  - 事件计算和通知（Event computing and notifications）
+  - 变更item后触发 通知或调用API（Event computing and notifications）
   - 实时流处理（Real-time stream processing）
   - 零停机数据迁移
   
@@ -1137,6 +1146,22 @@ SLA: 全面的服务水平协议
   5. 查看附件操作的处理结果
   ```
 
+- push model 优点
+
+  - 轮询拉取未来的changes
+  - 自动存取最后一次变更状态到Lease container;
+  - 可以在多个client消费changes时支持负载均衡
+  - 获取changes出现异常后 能够自动重试 
+
+- pull model 的优点
+
+  - 根据分区键获取changes
+
+  - 控制client接收changes的频率
+
+  - 一次性读取change feed中现有的所有数据
+
+    
 
 ## Lease container
 
@@ -1175,8 +1200,12 @@ SLA: 全面的服务水平协议
   .. : 后缀 LEASE_STORE_MANAGER_LEASE_SUFFIX
   
   other: ？？
+  
   --- Owner ---
   Owner：应用名
+  
+  --- ContinuationToken ---
+  作用：跟踪上一次处理的更改
   
   ```
 
@@ -1235,22 +1264,22 @@ SLA: 全面的服务水平协议
     在应用程序中初始化change feed processor,包括（设置监听的容器和租约容器，编写委托代码）
   step 4
     启用change feed processor
-  
+
     ps:
-  1. 当被监听的容器发生 更新or插入 操作的时候，chang feed processor 会把发生这些变更的操作的数据发送给委托处理
+    1. 当被监听的容器发生 更新or插入 操作的时候，chang feed processor 会把发生这些变更的操作的数据发送给委托处理
     2. 物理删item的时候，被删的数据不能被委托代码处理；可以通过设置ttl，在item过期之前将该item 交给委托处理。
+    3. 监控的开始时间：自定义设置（从指定时间开始 StartTime) or (从头开始 startFromBeginning)
     ```
-  
   - core class
-  
+
     ```java
-    ChangeFeedProcessor
-    LeaseStoreManager
-    PartitionManager
+      ChangeFeedProcessor
+      LeaseStoreManager
+      PartitionManager
     ```
-  
+
   - core code
-  
+
     ```java
       @Override
         public Mono<Void> start() {
@@ -1259,13 +1288,8 @@ SLA: 全面的服务水平协议
                 .then(this.partitionLoadBalancer.start());
         }
     ```
-  
 
-- 问题
-
-  ```
-  the RX Java scheduler to observe on.
-  ```
+- 
 
   
 
