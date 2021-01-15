@@ -1120,10 +1120,6 @@ SLA: 全面的服务水平协议
 
   - change feed 每次启动都会花费一定的成本
 
-- 例子
-
-  - https://azurecosmosdb.github.io/labs/dotnet/labs/08-change_feed_with_azure_functions.html
-
 - 应用场景
 
   - 变更item后触发 通知或调用API（Event computing and notifications）
@@ -1243,7 +1239,8 @@ SLA: 全面的服务水平协议
   - sample: 
     -  https://docs.microsoft.com/en-us/azure/cosmos-db/create-sql-api-java-changefeed
     -  https://github.com/Azure-Samples/azure-cosmos-java-sql-api-samples
-
+-  https://github.com/Azure-Samples/azure-cosmos-java-sql-app-example.git 
+    
 - 处理器组成
   - 被监控的容器：
     - Change feed的数据源（被监控容器的任何插入和更新的项）
@@ -1289,9 +1286,10 @@ SLA: 全面的服务水平协议
         }
     ```
 
-- 
+  
 
   
+
 
 ## Change feed estimator
 
