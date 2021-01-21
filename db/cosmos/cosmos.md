@@ -1238,7 +1238,7 @@ SLA: 全面的服务水平协议
 
   - sample: 
     -  https://docs.microsoft.com/en-us/azure/cosmos-db/create-sql-api-java-changefeed
-    -  https://github.com/Azure-Samples/azure-cosmos-java-sql-api-samples
+    -   https://github.com/Azure-Samples/azure-cosmos-java-sql-api-samples.git 
 -  https://github.com/Azure-Samples/azure-cosmos-java-sql-app-example.git 
     
 - 处理器组成
