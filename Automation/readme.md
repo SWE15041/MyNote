@@ -6,7 +6,7 @@ https://zhuanlan.zhihu.com/p/114787270
 
 
 
-# project repo & environment
+# project repo 
 
 1. `appium-junit` repo
 
@@ -38,9 +38,12 @@ https://zhuanlan.zhihu.com/p/114787270
    git@github.com:food-truck/foodtruck-wonder-app.git
    ```
 
-# tool 
+# environment 
 
 ## for Window
+
+>  工具
+> **Android studio、Intellij IDEA、Node、JDK1.8、Appium、Allure、TestRail、scoop**
 
 1. android studio
 
@@ -64,9 +67,9 @@ https://zhuanlan.zhihu.com/p/114787270
    > emulator -list-avds
    ```
 
-   
+2. appium  
 
-2. appium desktop
+   - `appium desktop` or `appium`
 
    - url：https://github.com/appium/appium-desktop/releases/tag/v1.19.1）
 
@@ -74,7 +77,6 @@ https://zhuanlan.zhihu.com/p/114787270
 
 ```
 一个appium 端口只能服务于一个模拟器或真机
-
 ```
 
 3. allure
@@ -100,8 +102,6 @@ test on cmd
 安装allure
 open cmd
 > scoop install allure
-
-
 ```
 
 	-  效果和使用截图	
@@ -134,56 +134,77 @@ open cmd
 
 ## for Mac
 
-- see other document
+> 工具：
+>
+> **Node 、Appium、Allure、 Xcode、Android Studio、Intellij IDEA、JDK1.8**
 
-# `appium-junit` 项目操作手册
+1. 工具安装
 
-## 03 
+   - Xcode  --Version 12.4 (download from App Store)
+   - Android studio 
+   - Intellij IDEA
 
-1. devices.properties
+   - 命令行安装
 
-```properties
-#Example: android10=[pixel3@10.0] It's suggested to use AVD_NAME for emulator which could be found by command: "%ANDROID_SDK_HOME%/emulator/emulator --list-avds"
-#Example: ios13=[iPhone 11@13.3] The device name should match Simulator or real device name for appium to match the device
-android11=[Pixel_3_11@11.0]
+   ```sh
+   brew install node
+   node -v
+   npm -v
+   
+   npm install -g appium
+   appium -v
+   npm install -g appium-doctor
+   appium-doctor --version
+   
+   brew install allure
+   allure --version
+   ```
+
+2. 环境变量设置
+
+   ```sh
+   vi ~/.bash_profile
+   source ~/.bash_profile
+   ```
+
+   ```shell
+   # android sdk env setting on bash_profile
+   export ANDROID_HOME=/Users/lyn/Library/Android/sdk
+   export ANDROID_SDK_HOME=/Users/lyn/Library/Android/sdk
+   export ANDROID_AVD_HOME=/Users/lyn/.android/avd
+   export PATH=$PATH:$ANDROID_HOME/platform-tools
+   
+   #jdk1.8 env setting on bash_profile
+   export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_191.jdk/Contents/Home
+   export CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar
+   export PATH=$PATH:$JAVA_HOME/bin
+   ```
+
+
+
+# Wonder app 打包（ipa）
+
+- 系统：OS
+- 软件：Xcode
+- 其他环境安装
+
+```
+brew install node
+brew install yarn
+brew install ruby
+
+sudo gem install cocoapods
+cd $appDir/ios
+pod install --verbose --no-repo-update
 ```
 
-2. setting.properties
-
-```properties
-android.appiumServer=127.0.0.1
-android.appPathOnServer=
-localAndroid.profile=profiles/localAndroidProfile.properties
-ios.appiumServer=127.0.0.1
-iosSimulator.appPathOnServer=
-iosRealDevice.appPathOnServer=
-localIOS.profile=profiles/localIOSProfile.properties
-localDebugMode=false
-device.default=android10
-appCenter.profile.format=profiles/appCenterProfile-%d.properties
-env=uat
-testRailEnabled=false
-reportRootFolderName=result
-localRepeatFailed=true
-```
-
-## 04
-
-- setting.properties
+- 注：打包需要Apple开发者证书（https://developer.apple.com）
 
 
 
-class EmlxAttachmentExtractor : 导出邮件	
+# AppCenter
 
-
-
-# account
-
-Mac mini
-
-```
-TeamViewer: 445898038:ct2test
-```
+- https://appcenter.ms/apps
 
 ```
 appcenter test run appium --app "Food-Truck-Inc/wonder-ios-uat" --devices "Food-Truck-Inc/devicesample-2020-dot-05-dot-14" --app-path D:\app\wonder.ipa --test-series "master" --locale "en_US" --build-dir target/upload
@@ -198,9 +219,5 @@ appcenter test run appium --app "Food-Truck-Inc/wonder-ios-uat" --devices "Food-
 
 
 
-# data init
 
-
-
-![image-20210201161748439](readme.assets/image-20210201161748439.png)
 
