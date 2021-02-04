@@ -194,6 +194,9 @@ brew install yarn
 brew install ruby
 
 sudo gem install cocoapods
+
+cd $appDir
+yarn install
 cd $appDir/ios
 pod install --verbose --no-repo-update
 ```
