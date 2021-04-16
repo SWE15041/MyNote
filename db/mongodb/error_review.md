@@ -11,7 +11,7 @@ db.alerts.aggregate([
     {
         $group: {
             _id: {
-                app: "$app",
+                app: "$app",a
                 action: "$action",
                 error_code: "$error_code"
             },

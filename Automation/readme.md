@@ -43,7 +43,7 @@ https://zhuanlan.zhihu.com/p/114787270
 ## for Window
 
 >  工具
-> **Android studio、Intellij IDEA、Node、JDK1.8、Appium、Allure、TestRail、scoop**
+> **Android studio、Intellij IDEA、Node、JDK1.8、JDK15、Appium、Allure、TestRail、scoop**
 
 1. android studio
 
@@ -136,31 +136,48 @@ open cmd
 
 > 工具：
 >
-> **Node 、Appium、Allure、 Xcode、Android Studio、Intellij IDEA、JDK1.8**
+> **Node 、Appium、Allure、 Xcode、Android Studio、Intellij IDEA、JDK1.8、JDK15**
 
 1. 工具安装
 
    - Xcode  --Version 12.4 (download from App Store)
-   - Android studio 
-   - Intellij IDEA
 
-   - 命令行安装
+   - Android studio （https://developer.android.com/studio）
 
-   ```sh
-   brew install node
-   node -v
-   npm -v
-   
-   npm install -g appium
-   appium -v
-   npm install -g appium-doctor
-   appium-doctor --version
-   
-   brew install allure
-   allure --version
-   ```
+   - Intellij IDEA（https://www.jetbrains.com/idea）
 
-2. 环境变量设置
+   - node
+
+     ```bash
+     brew install node
+     node -v
+     npm -v
+     ```
+
+   - Appium or Appium desktop
+
+     ```bash
+     #appium
+     npm install -g appium
+     appium -v
+     npm install -g appium-doctor
+     appium-doctor --version
+     
+     #appium desktop
+     http://appium.io
+     https://github.com/appium/appium-desktop/releases/tag/v1.20.2
+     ```
+
+   - allure
+
+     ```bash
+     brew install allure
+     allure --version
+     ```
+
+     
+
+2. 环境变量设置  (`~/.bash_profile`)
 
    ```sh
    vi ~/.bash_profile
@@ -168,6 +185,7 @@ open cmd
    ```
 
    ```shell
+   # input 
    # android sdk env setting on bash_profile
    export ANDROID_HOME=/Users/lyn/Library/Android/sdk
    export ANDROID_SDK_HOME=/Users/lyn/Library/Android/sdk
@@ -178,11 +196,12 @@ open cmd
    export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_191.jdk/Contents/Home
    export CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar
    export PATH=$PATH:$JAVA_HOME/bin
+   
    ```
 
 
 
-# Wonder app 打包（ipa）
+# Wonder app.ipa 打包（on Mac）
 
 - 系统：OS
 - 软件：Xcode
@@ -222,5 +241,17 @@ appcenter test run appium --app "Food-Truck-Inc/wonder-ios-uat" --devices "Food-
 
 
 
+- 在项目目录下执行以下命令；
 
+  ````
+  cd 项目目录
+  npm install -g appcenter-cli
+  
+  mvn -DskipTests -P prepare-for-upload package
+  
+  appcenter login (if first use)
+  
+  appcenter test run appium --app "Food-Truck-Inc/wonder-ios-uat" --devices "Food-Truck-Inc/134-retest" --app-path /Users/Yanni/Automation/packages/wonder_UAT_1.34.0.ipa --test-series "master" --locale "en_US" --build-dir target/upload
+  
+  ````
 

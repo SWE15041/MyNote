@@ -58,3 +58,54 @@
 
 
 
+```js
+// javascript
+
+const wdio = require("webdriverio");
+const assert = require("assert");
+
+const opts = {
+  path: '/wd/hub',
+  port: 4723,
+  capabilities: {
+    platformName: "iOS",
+    platformVersion: "14.4",
+    deviceName: "iPhone 12",
+    app: "/Users/Yanni/Automation/packages/wonderQA_1.35.0-567898db7.app",
+    appPackage: "io.appium.android.apis",
+    appActivity: ".view.TextFields",
+    automationName: "UiAutomator2"
+  }
+};
+
+async function main () {
+  const client = await wdio.remote(opts);
+
+  const field = await client.$("android.widget.EditText");
+  await field.setValue("Hello World!");
+  const value = await field.getText();
+  assert.strictEqual(value,"Hello World!");
+
+  await client.deleteSession();
+}
+
+main();
+
+
+```
+
+
+
+
+
+```
+{
+  "deviceName": "iPhone 12",
+  "platformVersion": "14.4",
+  "platformName": "iOS",
+  "app": "/Users/Yanni/Automation/packages/wonderQA_1.36.0-d6dc03486.app",
+  "appPackage": "com.remarkablefoods.consumerQA",
+  "automationName": "XCUITest"
+}
+```
+
