@@ -1,4 +1,5 @@
+echo ">>>>>>>>>upload start<<<<<<<<<<<"
 git add .
 git commit -m $1
 git push
-echo ">>>>>>>>>upload success<<<<<<<<<<<<"
+echo ">>>>>>>>>upload completed<<<<<<<<<<<<"
