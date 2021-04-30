@@ -6,7 +6,6 @@
 
 >#### Mac OS X
 >
->
 
 setup
 
@@ -66,3 +65,61 @@ sftp协议发送report
         </dependency>
 ```
 
+
+
+
+
+# allure 在线访问
+
+
+
+ 步骤：
+
+0. 安装 allure、p7zip、anywhere
+
+   ```
+   brew install allure
+   brew install p7zip
+   npm install anywhere -g
+   ```
+
+1. 测试，生成测试结果压缩包文件（*.7z)
+
+2. 把（*.7z）压缩包发送到Mac Mini 服务器的指定目录下（/users/testregression/appcenter）
+
+   ```
+   7z x zip/'*.7z' -oallure_results -y 
+   allure generate allure_results --clean -o allure-report
+   ```
+
+   
+
+3. 生成可在线访问的测试报告（执行解压缩命令&生成allure测试报告的命令）
+
+4. 在测试结果存放父目录下(/users/testregression/appcenter)，执行anywhere命令`nohup anywhere -p 8888 &`
+
+   ```sh
+   # Mac Mini 服务器
+   cd /users/testregression/appcenter
+   nohup anywhere -p 8888 &
+   ```
+
+5. 通过http协议访问报告(`http://ip:port`): http://192.168.11.14:8888
+
+   
+
+Ps: 测试报告目录结构
+
+    - appcenter
+      - {app_version}
+        - {device_name_os_version}
+          - zip
+          - allure_results
+          - allure-reports 
+         
+     - appcenter
+       - 1-38-0
+         - iphone_11_13.3
+           - zip
+           - allure_results
+           - allure-reports 
