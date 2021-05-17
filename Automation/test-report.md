@@ -1,11 +1,12 @@
 [toc]
 
+![preview](https://pic1.zhimg.com/v2-d3c8e39bc92674933834eaba7f9c4bb1_r.jpg?source=1940ef5c)
+
 
 
 # allure 
 
 >#### Mac OS X
->
 
 setup
 
@@ -123,3 +124,61 @@ Ps: 测试报告目录结构
            - zip
            - allure_results
            - allure-reports 
+
+
+
+# question
+
+Bug log
+
+```
+java.lang.AssertionError
+com.jcraft.jsch.JSchException: session is down
+com.jcraft.jsch.JSchException: connection is closed by foreign host
+原因：系统SSH终端连接数配置过小
+vi /etc/ssh/sshd_config
+MaxStartups 1000:30:1200
+MaxSessions 1000
+LoginGraceTime 0
+/etc/init.d/ssh restart
+解决：连接mac mini失败的问题，我加大了mac mini系统SSH终端连接数配置 和 加了retry休眠时间，下次测试再跟踪一下，
+
+
+com.google.gson.JsonSyntaxException: java.lang.NumberFormatException: For input string: "523d9a14-5496-4e09-a901-f66150d4f02c"
+原因：String 类型不能转化成 Integer类型
+
+
+org.openqa.selenium.TimeoutException: Expected condition failed: (tried for 30000 second(s) with 500 milliseconds interval)
+
+
+com.jcraft.jsch.JSchException: java.net.ConnectException: Connection refused (Connection refused)
+
+
+2021-05-08 08:49:59 [INFO] API POST https://yannilan004.testrail.io/index.php?/api/v2/add_result_for_case/24/22, data: {elapsed=null, status_id=5, defects=null, comment=retry failed after 10 attempts
+, version=null}
+```
+
+
+
+
+
+case report丢失的原因：
+
+1. ssh session连接数不够 （已解决）
+
+2. 用过的session没有关闭 （已解决）
+
+3. 网络问题 （未解决）
+
+   
+
+   
+
+   
+
+#  Test rail
+
+
+
+
+

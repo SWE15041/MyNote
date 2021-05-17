@@ -222,6 +222,13 @@ pod install --verbose --no-repo-update
 
 - 注：打包需要Apple开发者证书（https://developer.apple.com）
 
+other
+
+```
+cocopod升级
+sudo gem install -n / usr / local / bin cocoapods –pre
+```
+
 
 
 # AppCenter
