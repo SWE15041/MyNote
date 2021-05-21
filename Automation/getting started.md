@@ -109,3 +109,16 @@ main();
 }
 ```
 
+
+
+# Prepare
+
+1. 修改app代码, 去掉app黄色告警提示
+
+   - foodtruck-wonder-app/app/bootstrap.ts
+
+   ```
+   YellowBox.ignoreWarnings([""]);
+   ```
+
+   
