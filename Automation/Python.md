@@ -527,7 +527,7 @@ i = 8
 
 
 
-# 集合
+## 集合
 
 ### list
 
@@ -556,6 +556,8 @@ https://overiq.com/python-101/lists-in-python/
 - sequence * n 
 
 - 关系比较：跟字符串比较一样
+
+- 特点：有序
 
 - 
 
@@ -590,9 +592,68 @@ variable = [item1, item2, item3, ..., itemN]
 
 ### Tuples
 
+- 不可变类，一旦创建，修改会分配新的内存地址给tuple变量
+- 操作： + 、*、in、not in 、max、min、sum
+- 获取元组内元素：varName[index]
+
+```
+>>> t= ()
+>>> type(t)
+<class 'tuple'>
+>>> type(())
+<class 'tuple'>
+>>> 
+```
+
 
 
 ### Sets
+
+- 可变类型
+- 特点：集合内元素唯一，无序
+
+```python
+a_set = { item1, item2, item3 ..., itemN }
+
+max() 
+min() 
+sum()
+remove()
+discard()
+update()
+clear()
+in
+not in
+issuperset()
+issubset() A.issubset(B)
+union() 并集
+| 并集
+intersection() 交集
+& 交集 
+- 差集
+^ 补集
+
+```
+
+### Dictionary
+
+```python
+variable_name = {
+    'key1' : 'value1',
+    'key1' : 'value1',
+    ...
+    'keyN' : 'valueN',
+}
+
+
+del dict_name[key]
+len(variable_name)
+in
+not in
+
+```
+
+
 
 
 
