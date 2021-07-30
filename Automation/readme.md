@@ -38,6 +38,14 @@ https://zhuanlan.zhihu.com/p/114787270
    git@github.com:food-truck/foodtruck-wonder-app.git
    ```
 
+5. `foodtruck-test-data` repo
+
+   ```
+   git@chancetop:food-truck/foodtruck-test-data.git
+   ```
+
+   
+
 # environment 
 
 ## for Window
