@@ -1,6 +1,6 @@
 [toc]
 
-- RSET
+- RSET：Representational State Transfer（表现层状态转化）
 
   > - Resource
   > - Representation
@@ -14,3 +14,4 @@ http协议是无状态协议，资源的所有的状态都保存在服务器端�
 - 公共接口：暴露出去，给外部应用提供接口（如移动端的应用）
 - 私有接口：
 - 
+
