@@ -21,29 +21,29 @@ install guide：https://www.macminivault.com/installing-jenkins-on-macos/
 
 open 
 
-```
+```sh
 sudo nano /usr/local/opt/jenkins-lts/homebrew.mxcl.jenkins-lts.plist
 ```
 
-```
+```sh
 <string>--httpListenAddress=127.0.0.1</string>
 ```
 
 Change to:
 
-```
+```sh
 <string>--httpListenAddress=0.0.0.0</string>
 ```
 
 Start 
 
-```
+```sh
 brew services start jenkins-lts
 ```
 
 Get  initial password
 
-```
+```sh
 cat /Users/administrator/.jenkins/secrets/initialAdminPassword
 ```
 
@@ -58,6 +58,14 @@ Choose "install suggested plugins"
 ![img](https://www.macminivault.com/wp-content/uploads/customize_jenkins.png)
 
 ![image-20211025111431763](/Users/Yanni/Library/Application Support/typora-user-images/image-20211025111431763.png)  
+
+
+
+stop
+
+```sh
+ brew services stop jenkins-lts
+```
 
 
 
