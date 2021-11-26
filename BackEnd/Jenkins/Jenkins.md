@@ -78,3 +78,35 @@ allure generate allure_results --clean -o allure-report
 https://www.swtestacademy.com/allure-report-junit/
 
 ​	
+
+```
+     <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.20</version>
+                <configuration>
+                    <testFailureIgnore>true</testFailureIgnore>
+                    <excludes>
+                        <exclude>**/*Test.java</exclude>
+                        <exclude>**/Test*.java</exclude>
+                    </excludes>
+                    <includes>
+<!--                        <include>**/AppCenterExecutor.java</include>-->
+                        <include>**/QAAndroidSimulatorExecutor.java</include>
+                    </includes>
+                    <systemProperties>
+                        <property>
+                            <name>allure.results.directory</name>
+                            <value>${project.basedir}/allure-results</value>
+                        </property>
+                        <property>
+                            <name>junit.jupiter.extensions.autodetection.enabled</name>
+                            <value>true</value>
+                        </property>
+                    </systemProperties>
+                </configuration>
+            </plugin>
+```
+
+
+
