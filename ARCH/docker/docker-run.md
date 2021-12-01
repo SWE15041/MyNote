@@ -27,10 +27,30 @@
 
 ```shell
  docker build -t test-report-site . 
- docker run -d -p 8000:8000 test-report-site
+ docker run -d -p 8090:8090 test-report-site
  docker ps 
  docker exec -it ${containerID} /bin/bash
  allure --version
  
 ```
+
+
+
+```
+allure generate allure-results  --clean -o allure-reports
+
+RUN 				apk update && apk add unzip 
+RUN         apk add openjdk8
+ENV         JAVA_HOME="/usr/lib/jvm/java-8-openjdk"
+
+/tmp/8f7a1464-a97f-4136-8e48-a926b579ec99/1.54.0/AndroidEmulator_10.0/7cc0f3d850e34bc5b658dfa1687ddf2e
+
+```
+
+
+
+allure
+
+ ```
+ ```
 
