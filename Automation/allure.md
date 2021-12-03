@@ -8,6 +8,10 @@
 
 安装包：https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/
 
+allure report doc: https://docs.qameta.io/allure-report/
+
+
+
 
 
 # 安装allure
