@@ -1,5 +1,9 @@
 [toc]
 
+https://www.tutorialspoint.com/python/file_tell.htm
+
+
+
 ## install python
 
 ```
@@ -8,7 +12,7 @@ python --version
 python3 --version
 ```
 
-## Python data type
+## 数据类型
 
 str int float  复数（a + ib）= （实部+虚部j）
 

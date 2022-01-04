@@ -215,12 +215,15 @@ open cmd
 - 软件：Xcode
 - 其他环境安装
 
-```
+```sh
 brew install node
 brew install yarn
 brew install ruby
 
-sudo gem install cocoapods
+sudo gem install cocoapods 
+# or
+brew install cocoapods 
+
 
 cd $appDir
 yarn install
