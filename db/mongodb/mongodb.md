@@ -832,7 +832,7 @@ db.version()
   // 从倒数第20项开始的10条记录
   ```
 > db.posts.find( {}, { comments: { $slice: [ -20, 10 ] } } )
-  
+
   ```
   
   ```
@@ -868,11 +868,19 @@ db.version()
 
 
 
-# docker+mongodb
+# Docker+mongodb
 
-> docker exec -it --user root 9ece70e4547a /bin/bash
+> docker exec -it --user root 684484ac05d6 /bin/bash
 
-- 进入mongodb容器。
+- 连接mongodb容器。
+
+> mongo
+
+- 进入mongo控制台
+
+>
+
+
 
 # monogodb副本
 
