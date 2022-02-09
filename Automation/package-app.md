@@ -92,6 +92,132 @@ xcodebuild -exportArchive -archivePath ${archivePath} -exportPath ${exportPath} 
 
 
 
+**explain**
+
+```sh
+# format
+ xcodebuild archive 
+ -workspace 项目名称.xcworkspace 
+ -scheme 项目名称 
+ -configuration 构建配置 
+ -archivePath archive包存储路径 
+ CODE_SIGN_IDENTITY=证书 
+ PROVISIONING_PROFILE=描述文件UUID  
+
+# example
+xcodebuild archive
+-scheme wonderQa  
+-configuration Release 
+-workspace /Users/yannilan/workspace/Chancetop/FrontEnd/foodtruck-wonder-app/ios/wonder.xcworkspace  
+-archivePath /Users/yannilan/workspace/Chancetop/Automation/packages/test-workspace/cache/a.xcarchive
+
+# explain
+xcodebuild archive
+-workspace 项目名称.xcworkspace 
+-scheme 项目名称 
+-configuration 构建配置 
+-archivePath archive包存储路径 
+CODE_SIGN_IDENTITY=证书 
+PROVISIONING_PROFILE=描述文件UUID  
+
+```
+
+
+
+
+
+# 扫描下载安装包
+
+## iPhone相机扫描二维码安装ipa包
+
+**步骤：**
+
+1. 定义itms-services协议：`itms-services://?action=download-manifest&url=${url}`
+
+2. ${url}: 访问XXX.plist文件的地址（包含下载ipa包的内容，模板在下方）
+
+3. 将itms-services URL写入到前端代码：QRCode标签节点内(`<QRCode value="${itms-services协议}">`)
+
+4. 使用iPhone相机扫码下载安装ipa安装包。（注：手机与PC端连接同一个Wi-Fi，手机必须apple开发者认证）
+
+   
+
+前端：https://www.npmjs.com/package/qrcode.react
+
+```js
+var React = require('react');
+var QRCode = require('qrcode.react');
+
+React.render(
+  <QRCode value="http://facebook.github.io/react/" />,
+  mountNode
+);
+```
+
+协议：itms-services
+
+```sh
+# pattern
+itms-services://?action=download-manifest&url=${url}
+
+# example
+itms-services://?action=download-manifest&url=https://192.168.11.14/plist/QA/2.2.0/commit-27f00c7c6-host-192.168.11.14
+
+itms-services://?action=download-manifest&url=https://example.com/XXX.plist
+
+```
+
+XXX.plist文件模板
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>items</key>
+        <array>
+            <dict>
+                <key>assets</key>
+                <array>
+                    <dict>
+                        <key>kind</key>
+                        <string>software-package</string>
+                        <key>url</key>
+                        <!-- ipa package location: 自定义 -->
+                        <string>http://192.168.11.14/packages/wonderQA_2.3.0-efc641bac.ipa</string>
+                    </dict>
+                </array>
+                <key>metadata</key>
+                <dict>
+                    <key>bundle-identifier</key>
+                    <!-- bundle id： 项目/ios/wonder.xcodeproj/project.pbxproj 【MARKETING_VERSION】-->
+                    <string>com.remarkablefoods.consumerQA</string>
+                    <key>bundle-version</key>
+                    <!-- app version：项目/ios/wonder.xcodeproj/project.pbxproj【PRODUCT_BUNDLE_IDENTIFIER】 -->
+                    <string>2.3.0</string>
+                    <key>kind</key>
+                    <string>software</string>
+                    <key>title</key>
+                    <string>WonderQA</string>
+                </dict>
+            </dict>
+        </array>
+    </dict>
+</plist>
+```
+
+注：
+
+- ipa包存放位置：自定义url
+- 版本号位置：项目/ios/wonder.xcodeproj/project.pbxproj 【MARKETING_VERSION】
+- Build-identifier位置：项目/ios/wonder.xcodeproj/project.pbxproj【PRODUCT_BUNDLE_IDENTIFIER】
+
+## 手机浏览器扫描二维码安装apk包
+
+1. 将apk安装包的URL地址写入到前端代码：QRCode标签节点内(`<QRCode value="${apkURL}">`)
+2. 例子：${apkURL}=http://192.168.11.14/packages/xxx.apk
+3. 安卓手机，使用浏览器扫码下载安装软件。（注：手机与pc连接同一个wifi）
+
 
 
 # 问题
@@ -238,7 +364,7 @@ error: No profiles for 'com.remarkablefoods.consumerQA' were found: Xcode couldn
 
 # Xcode Archive fail
 
-**error message 1**
+**Error message 1**
 
 ```
 error: Can't find the 'node' binary to build the React Native bundle.  If you have a non-standard Node.js installation, select your project in Xcode, find  'Build Phases' - 'Bundle React Native code and images' and change NODE_BINARY to an  absolute path to your node executable. You can find it by invoking 'which node' in the terminal.
@@ -280,3 +406,20 @@ error: Provisioning profile "iOS Team Provisioning Profile: com.remarkablefoods.
 ***sulotion***
 
 找ios开发添加设备
+
+
+
+# 手机扫码安装app失败
+
+***Error message：***
+
+手机扫描二维码后，提示“无法安装”
+
+***solution：***
+
+app命名错误
+
+（反向解析二维码：https://cli.im/deqr）
+
+
+

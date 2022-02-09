@@ -11,8 +11,8 @@
 - 命令
 
   ```
-  appium
-  node 
+  npm init -y
+  npm install webdriverio
   ```
 
 - index.js脚本
@@ -28,9 +28,9 @@
     port: 4723,
     capabilities: {
       platformName: "Android",
-      platformVersion: "8",
-      deviceName: "Pixel_XL_8",
-      app: "/Users/lyn/Documents/Automation/appium/ApiDemos-debug.apk",
+      platformVersion: "12",
+      deviceName: "Pixel 5 API 31",
+      app: "/Users/yannilan/workspace/Chancetop/Automation/app/wonder_QA_2.3.0-cd74d6be2.apk",
       appPackage: "io.appium.android.apis",
       appActivity: ".view.TextFields",
       automationName: "UiAutomator2"
@@ -94,11 +94,17 @@ main();
 
 ```
 
+- 运行
+
+  ```sh
+  node index.js
+  ```
+
+  
 
 
 
-
-```
+```js
 {
   "deviceName": "iPhone 12",
   "platformVersion": "14.4",
