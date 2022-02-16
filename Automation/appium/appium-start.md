@@ -181,11 +181,44 @@ automationName：您要使用的驱动程序的名称
 1. 调API完成酒送达的流程
 2. 调API完成酒未送达的流程
 3. 将整个订单push到结束
-4. 
+4. 手工分配chef
 
 
 
 # 【demo】JAVA-Android
+
+```java
+public class LoginWithUser {
+    private AndroidDriver<WebElement> driver;
+
+    @Test
+    public void login() throws Exception {
+        // apk location
+        String appLocation = "/Users/yannilan/workspace/Chancetop/Automation/app/wonder_QA_2.3.1-156f19c90.apk";
+
+        // appium desired capabilities for android
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Pixel XL API 30");
+        capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "11.0");
+        capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, MobilePlatform.ANDROID);
+        capabilities.setCapability(MobileCapabilityType.APP, new File(appLocation).getAbsolutePath());
+        capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator2");
+
+        // appium port
+        String appiumPort = "4010";
+
+        // appium build session
+//        AndroidDriver<WebElement> driver = new AndroidDriver<>(new URL(String.format("http://127.0.0.1:%s/wd/hub", appiumPort)), capabilities);
+        driver = new AndroidDriver<>(new URL(String.format("http://127.0.0.1:%s/wd/hub", appiumPort)), capabilities);
+
+        // appium start automated test, example: login case
+        String email = "yannilan@regression.com";
+        String password = "pwd11111";
+        loginWithEmail(email, password);
+    }
+    
+}
+```
 
 
 
@@ -193,10 +226,14 @@ automationName：您要使用的驱动程序的名称
 
 # 【demo】JAVA-iOS
 
+同 android
+
+
+
 步骤：
 
 1. 启动appium server
-2. 连接到appium server 并创建会话
+2. 连接到appium server ，创建并启动会话
 3. 卸载后再安装app
 4. 开始根据test case操作app
 
@@ -223,3 +260,43 @@ node    6493 yannilan   23u  IPv4 0x375ef6a72ad12963      0t0  TCP *:samsung-uni
 
 
 
+# 【知识点】Selector Strategies
+
+http://appium.io/docs/en/commands/element/find-elements/index.html#selector-strategies
+
+
+
+# 【问题】difference Driver
+
+What is the use or difference between AndroidDriver, iOSDriver, AppiumDriver and Remote WebDriver
+
+https://discuss.appium.io/t/what-is-the-use-or-difference-between-androiddriver-iosdriver-appiumdriver-and-remote-webdriver/8750
+
+```
+从上往下（父节点 到 子节点） 继承关系：
+
+WebDriver（根节点）
+
+AppiumDriver（子节点）
+
+iOSDriver		AndroidDriver 
+```
+
+
+文字解释：
+
+```
+RemoteWebDriver：这个驱动类直接来自上游的 Selenium 项目。这是一个非常通用的驱动程序，其中初始化驱动程序意味着向 Selenium 集线器发出网络请求以启动驱动程序会话。由于 Appium 在客户端-服务器模型上运行，因此 Appium 使用它来初始化驱动程序会话。但是，不建议直接使用 RemoteWebDriver，因为还有其他可用的驱动程序可以提供附加功能或便利功能。
+
+AppiumDriver：此驱动程序类继承自 RemoteWebDriver 类，但它添加了在通过 Appium 服务器进行移动自动化测试的上下文中有用的附加功能。
+
+AndroidDriver：此驱动程序类继承自 AppiumDriver，但它添加了其他功能，这些功能在通过 Appium 在 Android 设备上进行移动自动化测试的上下文中很有用。如果您想在 Android 设备或 Android 模拟器上开始测试，请仅使用此驱动程序类。
+
+IOSDriver：此驱动程序类继承自 AppiumDriver，但它添加了其他功能，这些功能在通过 Appium 在 iOS 设备上进行移动自动化测试的上下文中很有用。如果您想在 iOS 设备或 iOS 模拟器上开始测试，请仅使用此驱动程序类。
+```
+
+
+
+【问题】session
+
+一台服务器上可以执行多个会话，同一个设备上只能运行一个会话。（一台电脑上）
