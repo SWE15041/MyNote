@@ -264,6 +264,30 @@ node    6493 yannilan   23u  IPv4 0x375ef6a72ad12963      0t0  TCP *:samsung-uni
 
 http://appium.io/docs/en/commands/element/find-elements/index.html#selector-strategies
 
+# 【问题】accessibility id vs id
+
+https://discuss.appium.io/t/accessibility-id-vs-id/19200
+
+跨平台应用（同时包括iOS和Android）选择使用accessibility id，可以让android和iOS使用相同的ID去定位元素
+
+RN：
+
+https://reactnative.dev/docs/accessibility
+
+默认情况下，所有可点击的组件（Touchable 系列组件）都是无障碍元素。
+
+https://developers.perfectomobile.com/display/TT/React-Native+and+unique+identifiers#:~:text=React%2DNative%20supports%20an%20attribute,in%20the%20ObjectSpy.
+
+
+
+ios:
+
+https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIAccessibilityIdentification_Protocol/index.html
+
+Android:
+
+https://developer.android.com/guide/topics/ui/accessibility/apps?hl=ru
+
 
 
 # 【问题】difference Driver
@@ -297,6 +321,41 @@ IOSDriver：此驱动程序类继承自 AppiumDriver，但它添加了其他功�
 
 
 
-【问题】session
+# 【问题】session
 
 一台服务器上可以执行多个会话，同一个设备上只能运行一个会话。（一台电脑上）
+
+
+
+# 【问题】React Nactive  and unique identifiers
+
+https://developers.perfectomobile.com/display/TT/React-Native+and+unique+identifiers#:~:text=React%2DNative%20supports%20an%20attribute,in%20the%20ObjectSpy.
+
+
+
+- demo
+
+  ```
+  import {Platform} from "react-native";
+  
+  export default function testID(id: string) {
+      return Platform.OS === "android" ? {accessible: true, accessibilityLabel: id} : {testID: id};}
+  
+  ```
+
+  
+
+- demo
+
+  ```
+  if (Platform.OS === 'ios') {
+  return { testID: id };
+  }
+  return { accessibilityLabel: id };
+  ```
+
+  # 【问题】iOS和Android平台差异：在Touchable系列组件上对accessible=true 或 false的处理
+
+https://appiumpro.com/editions/76-testing-react-native-apps-with-appium
+
+![image-20220217161006486](/Users/yannilan/workspace/swe15041/MyNote/Automation/appium/appium-start.assets/image-20220217161006486.png)
