@@ -192,3 +192,27 @@
 
 ​	
 
+# URL
+
+ basic [URI](https://en.wikipedia.org/wiki/Uniform_Resource_Identifier) syntax:
+
+```html
+scheme:[//[user:password@]host[:port]][/]path[?query][#fragment]
+```
+
+
+
+**How to get parent URL in Java?**
+
+```java
+URI uri = new URI("http://127.0.0.1/wb/hub/");
+URI parent = uri.getPath().endsWith("/") ? uri.resolve("..") : uri.resolve(".");
+System.out.println(parent); // output:	http://127.0.0.1/wb/
+
+URI uri = new URI("http://127.0.0.1/wb/hub");
+URI parent = uri.getPath().endsWith("/") ? uri.resolve("..") : uri.resolve(".");
+System.out.println(parent); // output: http://127.0.0.1/wb/
+```
+
+resolve：替换
+

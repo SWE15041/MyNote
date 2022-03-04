@@ -362,6 +362,10 @@ error: No profiles for 'com.remarkablefoods.consumerQA' were found: Xcode couldn
 
 ***see***: https://stackoverflow.com/questions/64007478/cocoapods-error-installing-mapbox-ios-sdk
 
+
+
+![A256D68F-68DB-413C-9C79-64A812531F3F](/Users/yannilan/workspace/swe15041/MyNote/Automation/package-app.assets/A256D68F-68DB-413C-9C79-64A812531F3F.png)
+
 # Xcode Archive fail
 
 **Error message 1**
