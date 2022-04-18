@@ -343,7 +343,7 @@ password sk.eyJ1IjoicmYtc3RhZ2luZyIsImEiOiJja29zZHE5Z24wMGo2Mm9uMzh5Y2xsNm5nIn0.
 
 
 
-# xcodebuild -schema fail
+# xcodebuild -Archive fail
 
 ***error message***
 
@@ -410,6 +410,30 @@ error: Provisioning profile "iOS Team Provisioning Profile: com.remarkablefoods.
 ***sulotion***
 
 找ios开发添加设备
+
+
+
+**error message 3**
+
+```
+error: exportArchive: No signing certificate "iOS Distribution" found
+
+Error Domain=IDECodesignResolverErrorDomain Code=1 "No signing certificate "iOS Distribution" found" UserInfo={IDEDistributionIssueSeverity=3, NSLocalizedRecoverySuggestion=No "iOS Distribution" signing certificate matching team ID "X53D5XH824" with a private key was found., IDEProvisioningError_UserInfoKey_IDEProvisioningErrorSpecifier=iOS Distribution, NSLocalizedDescription=No signing certificate "iOS Distribution" found, IDEProvisioningError_UserInfoKey_IDEProvisioningErrorPlatform=com.apple.platform.iphoneos, IDEProvisioningError_UserInfoKey_IDEProvisioningErrorAction=5, IDEProvisioningError_UserInfoKey_IDEProvisioningErrorTeam=<IDEProvisioningBasicTeam: 0x6000001568a0; teamID='X53D5XH824', teamName='(null)'>}
+```
+
+***solution***
+
+在XCode更新签名	
+
+XCode> Signing&Capabilities > Siging > Team > add an account > {login}> manage Certificates> +> Apple Development 
+
+```sh
+// 找到Keychain默认路径
+security default-keychain
+// 解锁Keychain
+security unlock-keychain -p changtuo308 ～/Library/Keychains/login.keychain-db
+
+```
 
 
 
