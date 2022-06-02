@@ -1,0 +1,51 @@
+.pc-navigation {
+  display: flex;
+  flex-direction: row;
+
+  .pc-navigation_sider {
+    height: 100vh;
+    background-color: #212133;
+    position: relative;
+    z-index: 1;
+
+    .collapse-icon {
+      position: absolute;
+      right: -20px;
+      top: 135px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .envoy-logo {
+      &:hover {
+        cursor: pointer;
+      }
+
+      img {
+        width: 174px;
+        height: 68px;
+      }
+    }
+
+    .envoy-logo-collapsed {
+      &:hover {
+        cursor: pointer;
+      }
+
+      img {
+        width: 53px;
+        height: 57px;
+      }
+    }
+  }
+
+  .pc-navigation_header {
+    height: 58px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.13);
+    margin-bottom: 2px;
+    z-index: 1;
+  }
+}

@@ -1,0 +1,63 @@
+@import "~antd/lib/style/themes/default";
+
+.visible-hidden {
+  visibility: hidden;
+}
+
+.visible-show {
+  visibility: visible !important;
+}
+
+@media screen and (max-width: @screen-xs) {
+  .mobile-navigation-box {
+    .mobile-navigation {
+      height: calc((100vw * 119) / 375);
+      background-color: #212133;
+      display: flex;
+      justify-content: center;
+      position: relative;
+
+      .mobile-navigation-logo {
+        width: calc((100vw * 114) / 375);
+        height: calc((100vw * 45) / 375);
+        position: relative;
+        background-color: #212133;
+        margin-top: calc((100vw * 52) / 375);
+
+        > img {
+          width: calc((100vw * 114) / 375);
+          height: calc((100vw * 45) / 375);
+        }
+
+        .mobile-navigation-restaurant-status {
+          position: absolute;
+          left: calc((100vw * -20) / 375);
+          top: calc((100vw * 8) / 375);
+          width: calc((100vw * 12) / 375);
+          height: calc((100vw * 12) / 375);
+          border-radius: 50%;
+        }
+      }
+    }
+
+    .mobile-navigation_menu-burger {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      right: calc((100vw * 29.25) / 375);
+      top: calc((100vw * 30.75) / 375);
+      width: calc((100vw * 20) / 375);
+      height: calc((100vw * 20) / 375);
+    }
+  }
+
+  .mobile-navigation-dropdown {
+    visibility: hidden;
+    width: 100vw;
+    background-color: #212133;
+    padding-left: calc((100vw * 24) / 375);
+    padding-right: calc((100vw * 33) / 375);
+    top: calc((100vw * 78) / 375) !important;
+  }
+}

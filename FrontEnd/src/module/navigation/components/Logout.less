@@ -1,0 +1,64 @@
+@import "~antd/lib/style/themes/default";
+
+.logout-modal-style {
+  .adm-modal-title {
+    margin-top: -5px;
+  }
+}
+
+.account-logout {
+  display: flex;
+  align-items: center;
+  height: 42px;
+  color: #36363a;
+  margin-bottom: 29px;
+  margin-top: 17px;
+
+  &:hover {
+    background-color: #dee9e9;
+    cursor: pointer;
+  }
+
+  .account-logout-icon {
+    padding-left: 34px;
+    margin-right: 12px;
+  }
+
+  .account-logout-label {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+@media screen and (max-width: @screen-xs) {
+  .logout-modal-style {
+    .adm-modal-title {
+      font-size: calc((100vw * 20) / 375);
+      line-height: calc((100vw * 20) / 375);
+      margin-bottom: calc((100vw * 37) / 375);
+      margin-top: calc((100vw * 15) / 375);
+    }
+  }
+
+  .account-logout {
+    height: calc((100vw * 42) / 375);
+    margin-bottom: calc((100vw * 29) / 375);
+    margin-top: calc((100vw * 17) / 375);
+
+    &:hover {
+      background-color: #212133;
+      cursor: pointer;
+    }
+
+    .account-logout-icon {
+      padding-left: calc((100vw * 59) / 375);
+      margin-right: calc((100vw * 12) / 375);
+    }
+
+    .account-logout-label {
+      font-size: calc((100vw * 16) / 375);
+      line-height: calc((100vw * 24) / 375);
+      color: #fff;
+    }
+  }
+}

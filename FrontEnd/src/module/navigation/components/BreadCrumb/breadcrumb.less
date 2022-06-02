@@ -1,0 +1,60 @@
+@import "~antd/lib/style/themes/default";
+
+.fti-breadcrumb {
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  padding-left: calc((34 / 1440) * 100vw);
+  margin-top: 3px;
+  font-size: 14px;
+
+  .ant-breadcrumb-link {
+    font-size: 14px;
+  }
+
+  .ant-breadcrumb-separator {
+    margin: 0 4px;
+  }
+
+  .ant-breadcrumb > span:last-child {
+    color: #000;
+  }
+}
+
+@media screen and (max-width: @screen-xs) {
+  .fti-breadcrumb {
+    min-height: calc((100vw * 30) / 375);
+    font-size: calc((100vw * 14) / 375);
+    padding-top: calc((100vw * 25) / 375);
+    padding-left: calc((100vw * 16) / 375);
+    background: #fff;
+    margin: 0;
+
+    .ant-breadcrumb {
+      height: calc((100vw * 30) / 375);
+      line-height: calc((100vw * 21) / 375);
+      display: flex;
+      align-items: center;
+
+      span,
+      a {
+        color: #636363 !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+
+    span:last-child {
+      color: #000 !important;
+    }
+
+    .ant-breadcrumb-separator {
+      margin: 0 calc((100vw * 4) / 375);
+    }
+
+    .ant-breadcrumb-link {
+      font-size: calc((100vw * 14) / 375);
+    }
+  }
+}

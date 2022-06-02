@@ -1,0 +1,57 @@
+@import "~antd/lib/style/themes/default";
+
+#framework-app-root {
+  height: 100%;
+}
+
+// antd-mobile default theme
+:root:root {
+  --adm-color-primary: #007473;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@media screen and (max-width: @screen-xs) {
+  //#framework-app-root {
+  //  height: 100%;
+  //  font-size: calc((100vw * 14) / 375);
+  //
+  //  & > div {
+  //    height: 100%;
+  //
+  //    .mobile-navigation-box {
+  //      height: 100%;
+  //      display: flex;
+  //      flex-direction: column;
+  //    }
+  //  }
+  //}
+  ::-webkit-scrollbar {
+    width: calc((100vw * 7) / 375);
+    background-color: #f5f5f5;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #fff;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    //-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background: rgba(196, 196, 196, 0.7);
+  }
+}

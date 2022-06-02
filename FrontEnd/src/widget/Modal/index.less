@@ -1,0 +1,128 @@
+@import "~antd/lib/style/themes/default";
+@import "~antd-mobile/es/global/global.css";
+
+.adm-modal {
+  z-index: 1200;
+
+  .adm-modal-body:not(.adm-modal-with-image) {
+    padding-top: 45px;
+  }
+
+  .adm-modal-body {
+    border-radius: 10px;
+    max-height: unset;
+
+    .adm-modal-close {
+      svg {
+        font-size: 22px;
+      }
+    }
+
+    .adm-modal-title {
+      padding: 0 35px;
+      font-size: 16px;
+    }
+
+    .adm-modal-content {
+      max-height: unset;
+      overflow: unset;
+      padding: 0 35px;
+    }
+  }
+
+  .adm-modal-footer {
+    flex-direction: row;
+    justify-content: center;
+    padding: 0 45px 28px 45px;
+
+    .adm-space-item {
+      margin-bottom: 0;
+      margin-right: 22px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      .adm-modal-button {
+        width: 172px;
+        height: 42px;
+        line-height: 18px;
+        font-size: 14px !important;
+      }
+
+      .adm-button-disabled {
+        color: #fff;
+        background: #d8d8d8;
+        border-color: #d8d8d8;
+        opacity: 1;
+      }
+
+      .button-default {
+        border: 1px solid var(--adm-color-primary);
+      }
+    }
+  }
+
+  .adm-modal-mask,
+  .adm-modal-wrap {
+    cursor: auto;
+  }
+}
+
+@media screen and (max-width: @screen-xs) {
+  .adm-modal {
+    .adm-modal-body:not(.adm-modal-with-image) {
+      padding-top: 38px;
+    }
+
+    .adm-modal-body {
+      width: unset !important;
+      height: unset !important;
+    }
+
+    .adm-modal-wrap {
+      width: 87vw;
+      max-width: unset;
+
+      .adm-modal-close {
+        top: calc((100vw * 10) / 375);
+        right: calc((100vw * 10) / 375);
+
+        svg {
+          font-size: calc((100vw * 18) / 375);
+        }
+      }
+
+      .adm-modal-title {
+        font-size: calc((100vw * 20) / 375) !important;
+        line-height: calc((100vw * 20) / 375);
+      }
+
+      .adm-modal-content {
+        padding: 0 calc((100vw * 25) / 375);
+      }
+
+      .adm-modal-footer {
+        flex-direction: column-reverse;
+        padding: 0 calc((100vw * 25) / 375) calc((100vw * 28) / 375) calc((100vw * 25) / 375);
+
+        .adm-space-item {
+          margin-bottom: calc((100vw * 17) / 375);
+          margin-right: 0;
+
+          .adm-modal-button {
+            font-size: calc((100vw * 16) / 375) !important;
+          }
+
+          .adm-button {
+            width: 100%;
+          }
+
+          &:first-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+}

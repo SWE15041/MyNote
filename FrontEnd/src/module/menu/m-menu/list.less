@@ -1,0 +1,128 @@
+@import "~antd/lib/style/themes/default";
+@import "~antd-mobile/es/global/global.css";
+
+@media screen and (max-width: @screen-xs) {
+  .menu-list-wrap {
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+
+    .menu-layout {
+      padding: 0 calc((100vw * 30) / 375) 0 calc((100vw * 26) / 375);
+      display: flex;
+      align-items: center;
+
+      & > span:nth-child(1) {
+        flex: 2;
+        padding-right: calc((100vw * 10) / 375);
+      }
+
+      & > span:nth-child(2) {
+        flex: 0.8;
+        text-align: left;
+      }
+
+      & > span:nth-child(3) {
+        flex: 0.5;
+        text-align: right;
+      }
+    }
+
+    .menu-list-header {
+      background: #f0f0f0;
+      height: calc((100vw * 45) / 375);
+      font-size: calc((100vw * 14) / 375);
+      font-weight: 500;
+      color: #000;
+    }
+
+    .list-img-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .menu-list-body {
+      flex: 1;
+      overflow-y: overlay;
+      margin-right: calc((100vw * 12) / 375);
+
+      .menu-row {
+        color: #000;
+        position: relative;
+        height: calc((100vw * 48) / 375);
+        align-items: center;
+        margin: 0 calc((100vw * 15) / 375) 0 calc((100vw * 28) / 375);
+        padding: 0 1px;
+
+        .restaurant-list-name {
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+
+          & > .envoy-icon,
+          & > svg {
+            vertical-align: middle;
+            margin-right: calc((100vw * 10) / 375);
+          }
+
+          & > img {
+            display: inline-block;
+            height: calc((100vw * 29) / 375);
+            width: calc((100vw * 29) / 375);
+            margin-right: calc((100vw * 10) / 375);
+            border-radius: calc((100vw * 6) / 375);
+          }
+        }
+
+        &:last-child::after {
+          display: none;
+        }
+
+        &::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          height: 0.5px;
+          background: #bababa;
+          transform-origin: 0 0;
+        }
+
+        & > span:last-child {
+          padding-right: calc((100vw * 4) / 375);
+        }
+      }
+
+      .disabled-menu-row {
+        color: #979797;
+
+        img,
+        .envoy-icon {
+          opacity: 0.5;
+        }
+      }
+
+      .list-not-fount {
+        line-height: calc((100vw * 22) / 375);
+        width: calc((100vw * 208) / 375);
+        text-align: center;
+        color: #05264c;
+        margin-top: calc((100vw * -10) / 375);
+
+        & > div {
+          font-size: calc((100vw * 18) / 375);
+        }
+
+        & > img {
+          height: calc((100vw * 208) / 375);
+          width: calc((100vw * 208) / 375);
+          margin-bottom: calc((100vw * 8) / 375);
+        }
+      }
+    }
+  }
+}

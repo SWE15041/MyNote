@@ -1,0 +1,32 @@
+@import "~antd/lib/style/themes/default";
+
+.orders-summary-tooltip {
+  margin-top: 14px !important;
+
+  .MuiTooltip-tooltip {
+    background-color: #246b6b;
+    font-size: 14px;
+    line-height: 20px;
+    padding: 8px;
+    font-weight: 400;
+    margin-top: 0 !important;
+  }
+
+  .MuiTooltip-arrow::before {
+    background-color: #246b6b;
+  }
+}
+
+@media screen and (max-width: @screen-xs) {
+  .orders-summary-tooltip {
+    margin-top: calc((100vw * 14) / 375) !important;
+
+    .MuiTooltip-tooltip {
+      font-size: calc((100vw * 14) / 375);
+      line-height: calc((100vw * 20) / 375);
+      padding: calc((100vw * 8) / 375);
+      margin-top: 0 !important;
+      width: calc((100vw * 263) / 375);
+    }
+  }
+}

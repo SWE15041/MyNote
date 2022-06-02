@@ -113,3 +113,24 @@ vi {project}/webpack/api.js
 ```
 npm install sockjs
 ```
+
+
+
+- error massage
+
+  ```
+  Cannot find module 'axios' or its corresponding type declarations.ts(2307)
+  
+  ```
+
+  
+
+
+
+```
+ npm install react-redux --save
+ npm i react-router-dom --save
+ npm install axios
+
+```
+

@@ -1,0 +1,126 @@
+@import "~antd/lib/style/themes/default";
+
+.clock-modal-style {
+  .adm-modal-title {
+    font-size: 18px !important;
+    margin: 0 auto;
+    height: 48px;
+    line-height: 44px;
+    margin-top: -13px;
+    margin-bottom: 10px;
+  }
+
+  .adm-modal-content {
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    margin: 0 auto;
+
+    .anticon-clock-circle {
+      display: inline-block;
+      height: 22px;
+      vertical-align: middle;
+    }
+
+    .modal-clock {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 20px;
+      margin-bottom: 25px;
+      color: var(--adm-color-primary);
+
+      svg {
+        font-size: 18px;
+      }
+
+      .ant-statistic {
+        display: inline-block;
+
+        .ant-statistic-content {
+          font-family: "Heebo", sans-serif;
+          font-size: 20px;
+        }
+
+        .ant-statistic-content-value {
+          color: var(--adm-color-primary);
+          font-size: 20px;
+        }
+      }
+    }
+  }
+
+  .button-default-15 {
+    position: relative;
+
+    &::after {
+      position: absolute;
+      content: "+15min";
+      left: 94px;
+      top: 11px;
+      font-weight: bold;
+    }
+  }
+}
+
+@media screen and (max-width: @screen-xs) {
+  .clock-modal-style {
+    .panel-content {
+      .panel-content-one {
+        display: block;
+      }
+    }
+
+    .adm-modal-title {
+      font-size: calc((100vw * 20) / 375);
+      width: calc((100vw * 275) / 375);
+      margin-bottom: calc((100vw * 15) / 375);
+      margin-top: 0;
+    }
+
+    .adm-modal-content {
+      font-size: calc((100vw * 16) / 375);
+      width: calc((100vw * 330) / 375);
+      line-height: calc((100vw * 20) / 375);
+
+      .modal-clock {
+        margin-top: calc((100vw * 20) / 375);
+        margin-bottom: calc((100vw * 25) / 375);
+        line-height: calc((100vw * 20) / 375);
+      }
+
+      svg {
+        font-size: calc((100vw * 16) / 375);
+      }
+
+      .clock-label {
+        font-size: calc((100vw * 18) / 375);
+      }
+
+      .ant-statistic {
+        display: block !important;
+
+        .ant-statistic-content {
+          font-family: "Heebo", sans-serif;
+          font-size: calc((100vw * 18) / 375) !important;
+        }
+
+        .ant-statistic-content-value {
+          font-size: calc((100vw * 18) / 375) !important;
+          padding-left: calc((100vw * 21) / 375);
+        }
+      }
+    }
+
+    .button-default-15 {
+      position: relative;
+
+      &::after {
+        position: absolute;
+        content: "+15min";
+        left: calc((100vw * 114) / 375);
+        top: calc((100vw * 11) / 375);
+        font-weight: bold;
+      }
+    }
+  }
+}

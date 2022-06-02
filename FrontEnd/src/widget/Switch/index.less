@@ -1,0 +1,28 @@
+@import "~antd/lib/style/themes/default";
+
+.adm-switch {
+  --height: 18px;
+  --width: 34.5px;
+  //--border-width: 1.5px;
+
+  .adm-switch-checkbox {
+    background: #c4c4c4;
+    border-radius: 9px;
+
+    &::before {
+      height: unset;
+    }
+  }
+}
+
+@media screen and (max-width: @screen-xs) {
+  .adm-switch {
+    --height: calc((100vw * 18) / 375);
+    --width: calc((100vw * 34.5) / 375);
+    //--border-width: calc((100vw * 1.5) / 375);
+
+    .adm-switch-checkbox {
+      border-radius: calc((100vw * 9) / 375);
+    }
+  }
+}
