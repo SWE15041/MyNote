@@ -253,7 +253,9 @@ du -c -d 1 -m | sort -n
 
 
 
+ **-g**   Display block counts in 1073741824-byte (1-Gbyte) blocks.
 
+   **-m**   Display block counts in 1048576-byte (1-Mbyte) blocks.
 
 ```
 # 模拟器
@@ -271,6 +273,10 @@ du -c -d 1 -m | sort -n
 
 # 真机
 ~/Library/Developer/XCTestDevices
+
+.gradle目录组织
+daemon 日志目录 可以删
+/Users/testregression/.gradle/daemon
 
 ```
 
@@ -399,6 +405,12 @@ export NODE_BINARY=/opt/homebrew/bin/node
 
 ***see***: https://www.jianshu.com/p/033db05fca5a
 
+或者从项目文件中去修改这个命令：
+
+```
+ios/wonder.xcodeproj/project.pbxproj
+```
+
 
 
 **Error message 2**
@@ -448,6 +460,10 @@ security unlock-keychain -p changtuo308 ～/Library/Keychains/login.keychain-db
 app命名错误
 
 （反向解析二维码：https://cli.im/deqr）
+
+
+
+node命令路径被替换导致ios打包失败问题
 
 
 
