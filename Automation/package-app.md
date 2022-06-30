@@ -349,30 +349,7 @@ password sk.eyJ1IjoicmYtc3RhZ2luZyIsImEiOiJja29zZHE5Z24wMGo2Mm9uMzh5Y2xsNm5nIn0.
 
 
 
-# xcodebuild -Archive fail
-
-***error message***
-
-```
-error: No profiles for 'com.remarkablefoods.consumerQA' were found: Xcode couldn't find any iOS App Development provisioning profiles matching 'com.remarkablefoods.consumerQA'. Automatic signing is disabled and unable to generate a profile. To enable automatic signing, pass -allowProvisioningUpdates to xcodebuild. (in target 'wonderQa' from project 'wonder')
-
-** ARCHIVE FAILED **
-```
-
-***solution***
-
-1. open `Xcode`
-2. Signing & Capabilities > Signing>Team > Add an Account
-3. login  appid (apple deleveoper singing)
-4. Download Manual Profiles
-
-***see***: https://stackoverflow.com/questions/64007478/cocoapods-error-installing-mapbox-ios-sdk
-
-
-
-![A256D68F-68DB-413C-9C79-64A812531F3F](/Users/yannilan/workspace/swe15041/MyNote/Automation/package-app.assets/A256D68F-68DB-413C-9C79-64A812531F3F.png)
-
-# Xcode Archive fail
+# xcode archive fail
 
 **Error message 1**
 
@@ -446,6 +423,29 @@ security default-keychain
 security unlock-keychain -p changtuo308 ～/Library/Keychains/login.keychain-db
 
 ```
+
+
+
+***error message 4***
+
+```
+error: No profiles for 'com.remarkablefoods.consumerQA' were found: Xcode couldn't find any iOS App Development provisioning profiles matching 'com.remarkablefoods.consumerQA'. Automatic signing is disabled and unable to generate a profile. To enable automatic signing, pass -allowProvisioningUpdates to xcodebuild. (in target 'wonderQa' from project 'wonder')
+
+** ARCHIVE FAILED **
+```
+
+***solution***
+
+1. open `Xcode`
+2. Signing & Capabilities > Signing>Team > Add an Account
+3. login  appid (apple deleveoper singing)
+4. Download Manual Profiles
+
+***see***: https://stackoverflow.com/questions/64007478/cocoapods-error-installing-mapbox-ios-sdk
+
+
+
+![A256D68F-68DB-413C-9C79-64A812531F3F](/Users/yannilan/workspace/swe15041/MyNote/Automation/package-app.assets/A256D68F-68DB-413C-9C79-64A812531F3F.png)
 
 
 
