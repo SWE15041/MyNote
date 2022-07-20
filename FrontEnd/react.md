@@ -1,5 +1,9 @@
 [toc]
 
+30*150/60/3 =25
+
+一集30分钟 150集 3小时 3*60
+
 为什么要学react？
 
 1. 原生JS操作dom繁琐，效率低
@@ -88,7 +92,24 @@ JSX （javascript XML）
 
 - 模块
 
+  ```
+  作用：复用js 简化js的编写 提高js的运行效率
+  一个模块一般就是一个js文件
+  
+  ```
+
+  
+
 - 组件
+
+  ```
+  分类：函数式组件 和 类式组件
+  定义：用来实现局部功能效果的代码和资源的集合（html、css、js等）。
+  函数式组件内的this：undefined ()
+  类式组件内的this：XXX组件对象（XXX的实例对象）
+  ```
+
+  
 
 - 模块化
 
@@ -100,9 +121,99 @@ XML
 
 
 
-浏览器插件
+# 浏览器插件
 
 chrome：React Developer Tools
 
+
+
+react 工作原理
+
+1. React 解析组件标签，找到了XXX组件
+2. 将虚拟DOM转化成真实的DOM渲染。
+
 # 组件
+
+**函数式组件**
+
+无state
+
+- demo
+
+  ```jsx
+  <script type="text/babel">
+    // 函数组件的定义(首字母大写)
+    function Demo(){
+      console.log(this)// undefined
+      return <h2>"函数定义的组件"</h2>
+    }
+    // 函数组件的调用：<Demo/>
+    ReactDOM.render(<Demo/>,document.getElementById('test'))
+  </script>
+  ```
+
+**类式组件**
+
+有state
+
+
+
+## 组件的三大核心属性（类式组件）
+
+## state
+
+1. state是组件对象最重要的属性，值是对象（多个key-value的组合）
+2. 组件被称为“状态机”，通过更新组件的state来更新对应的页面显示（重新渲染组件）
+
+PS：
+
+1. 组件render方法中的this为组件实例对象
+2. 组件自定义的方法中的this为undefined，如何解决
+   - 强制绑定this：通过函数对象的bind()
+   - 箭头函数
+3. 状态数据，不能直接修改或者更新，要调用setState方法进行状态的合并。
+
+## props
+
+
+
+## refs(已弃用)
+
+
+
+
+
+# Common
+
+MDN: https://developer.mozilla.org/zh-CN/docs/Learn
+
+展开运算符 ...
+
+```js
+  <script type="text/javascript">
+        // 展开运算符...
+        let arr1 = [1,2,3]
+        let arr2 = ['a','b','c']
+        // 展开数组
+        console.log(...arr1)// 1 2 3
+        let arr3 = [...arr1, ...arr2]
+        // 连接数组
+        console.log(arr3) // 1, 2, 3, 'a', 'b', 'c'
+        //
+        function sum(...numbers) {
+          return  numbers.reduce((preValue,currentValue)=>{return preValue+currentValue})
+        }
+        console.log(sum(1,2,3,4)) // 10
+        // 构造字面量对象时使用展开语法
+        let person1 = {name:'tom', age: 18}
+        let person2 = {...person1}
+        // console.log(..person1)// 报错，展开运算符不能展开对象
+        person1.name = 'jerry'
+        console.log(person1)
+        console.log(person2)
+        // 合并
+        let pseson3 = {...person1,name:'jack', address:'china'}
+        console.log(pseson3)
+    </script>
+```
 
