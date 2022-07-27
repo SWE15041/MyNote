@@ -309,3 +309,14 @@ For more examples and ideas, visit:
   	- -f： 强制删除（docker rm -f $(docker ps -qa)）(docker ps -qa |xargs docker rm)
   	- 
 
+# 问题
+
+kafka日志连接失败
+
+解决：
+
+```sh
+docker compose down --remove-orphans
+docker compose up -d
+```
+
