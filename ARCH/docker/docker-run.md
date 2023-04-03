@@ -3,6 +3,7 @@
 ![image-20211126175140678](/Users/Yanni/Library/Application Support/typora-user-images/image-20211126175140678.png)
 
 
+ sh ./gradlew -p test-report-site -Penv=dev clean docker
 
 - dockerfile
 
@@ -26,6 +27,7 @@
 
 
 ```shell
+ cd <rootDir>/build/test-report-site/docker
  docker build -t test-report-site . 
  docker run -d -p 8090:8090 test-report-site
  docker ps 
