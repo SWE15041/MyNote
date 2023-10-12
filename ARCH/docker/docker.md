@@ -294,7 +294,7 @@ For more examples and ideas, visit:
 
 - 作用：重启容器
 
->docker stop  [cId|cName]
+> docker stop  [cId|cName]
 
 - 作用： 停止容器
 

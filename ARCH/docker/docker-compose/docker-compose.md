@@ -6,5 +6,9 @@
 
 命令手册：https://docs.docker.com/compose/reference/up/
 
+docker  mysql8 
+https://hub.docker.com/r/mysql/mysql-server
+
+
 
 
