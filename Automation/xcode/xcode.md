@@ -2,6 +2,22 @@
 
 Xcode 13.4.1 
 
+
+
+# 手动安装Xcode
+
+- 从apple开发者站点下载：https://developer.apple.com/download/all/?q=xcode
+
+```
+  xcode-select -s /Applications/Xcode-beta.app
+  xcodebuild -runFirstLaunch
+  xcrun simctl runtime add "~/Downloads/watchOS 9 beta Simulator Runtime.dmg"
+```
+
+
+
+
+
 # 存储路径
 
 
@@ -69,5 +85,14 @@ https://devimages-cdn.apple.com/downloads/xcode/simulators/com.apple.pkg.iPhoneS
 1. 打开控制台console， 点击开始流传输，
 2. 打开Xcode，点击下载，
 3. 到控制台搜索：DVTDownloadable
+```
+
+
+
+```
+  hdiutil attach <image> -mountpoint /Volumes/Example10A101 -shadow
+
+  hdiutil attach /Users/yanni/Downloads/com.apple.pkg.iPhoneSimulatorSDK15_0-15.0.1.1633542405.dmg -mountpoint /Users/yanni/workspace/chancetop/test -shadow
+
 ```
 
