@@ -1,0 +1,101 @@
+1. 新建新mac用户
+2. 登录新账户，再登录管理员账户，复制用户主目录：/Users/<xxx>  to /Volumes/T7/<xxx>
+3. 修改用户主目录路径: sudo dscl . -create /Users/changtuo002 
+ /Volumes/T7/changtuo002
+
+验证生效：dscl . -read /Users/changtuo002 NFSHomeDirectory
+4. 修改系统设置: 
+sudo chown -R  changtuo002 /Volumes/T7/changtuo002
+sudo chgrp -R staff /Volumes/T7/changtuo002
+5. 从开发者站点下载xcode.xip 到移动硬盘的mac用户的Applications目录下
+6. 在移动硬盘解压xcode.xip
+7. 切换新账号 运行安装Xcode命令：
+sudo xcode-select --switch /Volumes/T7/changtuo002/Applications/Xcode.app
+
+sudo xcode-select -s /Volumes/T7/changtuo003/Applications/Xcode.app/Contents/Developer 
+
+xcodebuild -license accept
+sudo xcodebuild -runFirstLaunch
+sudo simctl runtime add "/Volumes/T7/iOS_17_Simulator_Runtime.dmg"
+
+
+xcrun: error: unable to find utility "simctl", not a developer tool or in PATH
+
+vi ~/.bash_profile
+export PATH=$PATH:/Volumes/T7/changtuo003/Applications/Xcode.app/Contents/Developer/usr/bin
+
+
+https://devimages-cdn.apple.com/downloads/xcode/simulators/com.apple.pkg.iPhoneSimulatorSDK15_5-15.5.1.1653527639.dmg
+
+
+
+
+Create device
+
+xcrun simctl list devicetypes
+com.apple.CoreSimulator.SimDeviceType.iPhone-11-Pro
+
+xcrun simctl list runtimes
+com.apple.CoreSimulator.SimRuntime.iOS-15-5
+
+xcrun simctl create test com.apple.CoreSimulator.SimDeviceType.iPhone-11-Pro com.apple.CoreSimulator.SimRuntime.iOS-15-5
+
+App install
+xcrun simctl install C8B597EC-9547-466A-881C-B7422D95C57A /Volumes/T7/changtuo002/Downloads/test-daemon/bin/test-daemon-workspace/app-packages/wonder_3.20.0_65265fe1475235a605774ccd.app
+
+launch app
+xcrun simctl launch C8B597EC-9547-466A-881C-B7422D95C57 com.remarkablefoods.consumerUAT
+
+
+
+/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 15.0.simruntime
+
+
+降低Xcode版本？=> 电脑操作系统的版本太新了
+
+Xcode命令行工具默认的安装目录（保证了系统各个用户之间资源共享）：/Library/Developer/CommandLineTools/
+
+SimulatorTrampoline.xpc是否会影响我的应用程序？
+=> /Library/Developer/PrivateFrameworks/CoreSimulator.framework/Versions/A/XPCServices/SimulatorTrampoline.xpc
+
+
+Unable to boot the Simulator.
+=>
+Go to [About this Mac > Storage > Manage > Developer]
+Delete all the content (no worries!)
+
+
+softwareupdate --install-rosetta
+
+
+
+测试阶段
+
+[debug] [AppiumDriver@e998] Encountered internal error running command: Error: Could not determine iOS SDK version: Command 'xcrun --sdk iphonesimulator --show-sdk-version' exited with code 1: xcrun: error: SDK "iphonesimulator" cannot be located
+
+xcrun: error: unable to lookup item 'SDKVersion' in SDK 'iphonesimulator'
+
+=>
+sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+
+
+App 权限
+SimulatorTrampoline.xpc
+“Xcode” would like to access files on a removable volume.
+
+Appium 
+
+{ platform:iOS, id:dvtdevice-DVTiPhonePlaceholder-iphoneos:placeholder, name:Any iOS Device, error:iOS 17.0 is not installed. To use with Xcode, first download and install the platform }
+
+=>旧版本的iOS 下载后放这个目录下后 再启动下载去安装 open ~/Library/Caches/com.apple.dt.Xcode/Downloads/
+=>最新版本的iOS 执行xcrun simctl runtime add "xxx.dmg" 安装
+
+[debug] [AppiumDriver@cf51] Encountered internal error running command: Error: Unable to launch WebDriverAgent because of xcodebuild failure: xcodebuild failed with code 65
+=> 在装有最新版iOS设备上运行wda
+
+failed to exec command=xcrun simctl boot 00E895B0-CBE6-474F-ABE3-8BA1EB8AA01C, error=An error was encountered processing the command (domain=NSPOSIXErrorDomain, code=4):
+Unable to boot the Simulator.
+Interrupted system call
+Underlying error (domain=com.apple.SimLaunchHostService.RequestError, code=4):
+	Failed to start launchd_sim: could not bind to session, launchd_sim may have crashed or quit responding
+=> 清理缓存，位置：settings/General/Storage/Developer

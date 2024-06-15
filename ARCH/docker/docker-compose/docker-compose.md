@@ -9,6 +9,13 @@
 docker  mysql8 
 https://hub.docker.com/r/mysql/mysql-server
 
+ 
+# 安装docker-compose
 
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
+brew install docker-compose
 
+docker-compose version
+```
