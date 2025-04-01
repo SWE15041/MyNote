@@ -21,6 +21,13 @@ jobs:
           webhook: ${{ secrets.SLACK_WEBHOOK_URL }}  # 使用 Secrets 中的 Webhook URL
           webhook-type: incoming-webhook
           payload: |
-            {
-              "text": "Greetings!"
+             {
+              "text": " API changed ",
+              "attachments": [
+                {
+                  "title": "提交信息",
+                  "text": "${{ github.event.head_commit.message }}",
+                  "color": "#36a64f"
+                }
+              ]
             }
