@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Send Slack Notification
-        uses: 8398a7/action-slack@v3  # 使用 Slack 通知 Action
+        uses: ravsamhq/notify-slack-action@v2 # 使用 Slack 通知 Action
         with:
           status: ${{ job.status }}  # 传递作业状态
           payload: |
