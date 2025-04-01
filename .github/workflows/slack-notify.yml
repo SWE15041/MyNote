@@ -10,10 +10,13 @@ jobs:
     name: Leave a kind message after updates
     runs-on: ubuntu-latest
     steps:
+      - name: Check Webhook URL
+        run: echo ${{ secrets.SLACK_WEBHOOK_URL }}  # 确认 Secrets 是否被正确读取
+
       - name: Greet the reader
         uses: slackapi/slack-github-action@v2.0.0
         with:
-          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}  # 使用 Secrets 中的 Webhook URL
           webhook-type: incoming-webhook
           payload: |
             {
