@@ -1,0 +1,29 @@
+name: Notify Slack on Push
+
+on:
+  push:
+    branches:
+      - main  # 设置你想要监控的分支
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send Slack Notification
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          payload: |
+            {
+              "text": "代码已推送到主分支！",
+              "attachments": [
+                {
+                  "title": "提交信息",
+                  "text": "${{ github.event.head_commit.message }}",
+                  "color": "#36a64f"
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
