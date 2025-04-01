@@ -3,7 +3,7 @@ name: Notify Slack on Push
 on:
   push:
     branches:
-      - main  # 设置你想要监控的分支
+      - master  # 设置你想要监控的分支
 
 jobs:
   notify:
