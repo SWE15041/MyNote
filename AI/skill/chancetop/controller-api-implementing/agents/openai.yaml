@@ -1,0 +1,4 @@
+interface:
+  display_name: "Controller API Implementing"
+  short_description: "HDR Controller 实现与注册位置快速指引技能"
+  default_prompt: "Use $controller-api-implementing to add or refactor a Controller in hdr-project, including class placement, route registration, bean registration, and module binding."

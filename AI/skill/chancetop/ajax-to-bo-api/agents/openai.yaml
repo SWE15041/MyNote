@@ -1,0 +1,7 @@
+interface:
+  display_name: "AJAX to BO API"
+  short_description: "参考 AJAX 层快速生成和更新 BO 层 API 规则"
+  default_prompt: "Use $ajax-to-bo-api to create or update BO APIs from existing AJAX APIs, including path, request, response, and BO-only request fields."
+
+policy:
+  allow_implicit_invocation: true

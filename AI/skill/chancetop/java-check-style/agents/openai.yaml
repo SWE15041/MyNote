@@ -1,0 +1,4 @@
+interface:
+  display_name: "Java-Check-Style"
+  short_description: "HDR Java 静态检查规范摘要与编写审查指南"
+  default_prompt: "Use $java-check-style to follow hdr-project Java static-analysis rules when coding or reviewing."
